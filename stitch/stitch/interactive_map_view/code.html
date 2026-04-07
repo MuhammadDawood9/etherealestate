@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ethereal Estate | Interactive Map</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-variant": "#e5e2e1", "surface-container-low": "#f6f3f2", "on-tertiary-container": "#747676", "on-secondary-fixed": "#1b1c1c", outline: "#747878", "on-primary": "#ffffff", "primary-container": "#ffffff", "tertiary-fixed": "#e2e2e2", "inverse-surface": "#313030", "on-secondary-fixed-variant": "#474747", background: "#fcf8f8", tertiary: "#5d5f5f", "surface-dim": "#ddd9d9", "secondary-container": "#e4e2e2", "outline-variant": "#c4c7c8", "primary-fixed-dim": "#c6c6c7", "secondary-fixed-dim": "#c8c6c6", "error-container": "#ffdad6", "surface-container-high": "#ebe7e7", "surface-tint": "#5d5f5f", error: "#ba1a1a", "on-secondary": "#ffffff", "surface-container-highest": "#e5e2e1", surface: "#fcf8f8", "on-surface-variant": "#444748", "primary-fixed": "#e2e2e2", "on-primary-fixed": "#1a1c1c", "surface-container-lowest": "#ffffff", "on-primary-fixed-variant": "#454747", "inverse-primary": "#c6c6c7", "on-surface": "#1c1b1b", "on-error": "#ffffff", "on-error-container": "#93000a", "on-background": "#1c1b1b", secondary: "#5e5e5e", "surface-bright": "#fcf8f8", "on-tertiary-fixed-variant": "#454747", primary: "#5d5f5f", "on-primary-container": "#747676", "surface-container": "#f1edec", "on-secondary-container": "#646464", "tertiary-fixed-dim": "#c6c6c7", "tertiary-container": "#ffffff", "inverse-on-surface": "#f4f0ef", "on-tertiary": "#ffffff", "secondary-fixed": "#e4e2e2", "on-tertiary-fixed": "#1a1c1c"}, borderRadius: {DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px"}, fontFamily: {headline: ["Manrope"], body: ["Inter"], label: ["Inter"], display: "Manrope"}}}};</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .squircle-32 {
+            border-radius: 32pt;
+        }
+        .map-mesh {
+            background-color: #0d1c32;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(76, 84, 182, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(142, 151, 253, 0.1) 0px, transparent 50%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3C%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            background-blend-mode: overlay;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body overflow-hidden h-screen w-screen">
+<!-- Top Navigation Shell (Suppressing Drawer for Focus Map View) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-white/15 dark:bg-slate-900/15 backdrop-blur-xl shadow-[0_40px_40px_-15px_rgba(81,95,120,0.06)]">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-slate-950 dark:text-white hover:bg-white/20 p-2 rounded-full transition-all">menu</button>
+<span class="text-xl font-extrabold text-slate-950 dark:text-white font-headline tracking-tight">Ethereal Estate</span>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8 text-sm font-headline font-bold">
+<a class="text-indigo-400" href="#">Discover</a>
+<a class="text-slate-600 hover:text-indigo-400 transition-colors" href="#">Saved</a>
+<a class="text-slate-600 hover:text-indigo-400 transition-colors" href="#">Messages</a>
+</nav>
+<div class="h-10 w-10 rounded-full bg-surface-container-highest overflow-hidden border-2 border-white/20">
+<img alt="User Profile" data-alt="professional headshot of a curator in minimalist studio lighting with soft shadows and clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkxpIpR4eW6aRaUlJpDvzt51LutIl73O3p4LIPmIC-p5C_MdU1V6XercYFC2Jf6dGTMw8evEUDxyAcLEs3-Up7FgvKsJz2fBQ0Tdy8ZW7TWWZ8fam36WJMj_x2P8MAGn7LwlINwadIOmg3PMWXTwgxgs1tuEHImsZdKomzCzFIWcfzg-hi44HoIU31OVwo7eupcjKYxpd0qSf6ZlddlrB5PaxqlDzm4W8NCf2Lq3dYuvxhoA9SIohDHFNrgDQLouDN2xNiVNYmeHg"/>
+</div>
+</div>
+</header>
+<!-- Main Map Canvas -->
+<main class="relative h-full w-full pt-20">
+<!-- Dark Apple Maps Style Base -->
+<div class="absolute inset-0 map-mesh">
+<div class="w-full h-full opacity-40 mix-blend-screen" data-location="San Francisco" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCsqD7ZETJOzdWzvyHB2kOOa6Tu9giZe6GOHwOgUHfcVgTb6iaIT5LJtBNZa79mCaUXyHJ5CD0BPM3EdbKioONZg8iK8LX7bjC-Zzfd9n6t7R0on9QMBASGB5LrfkHL1Hiq49qT1YqYxZJnHDFQuSPgEcmAwuZg-ljM9W5nkdz5f-7yI6tHpMGoAMYI1PagF694od6uiJCVf7WTj-UWqBzZO_8aGY3d4ADLimxn5KZM62RwXhMkYVExM5CNIFObRj-cIboUw-7AbFs'); background-size: cover; background-position: center;"></div>
+<!-- Custom Pins -->
+<!-- Active Pin -->
+<div class="absolute top-[45%] left-[55%] -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+<div class="w-10 h-10 bg-primary-container rounded-full flex items-center justify-center border-2 border-secondary shadow-[0_0_20px_rgba(142,151,253,0.6)] relative z-10">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div class="w-4 h-4 bg-primary-container rotate-45 -mt-2 border-r-2 border-b-2 border-secondary"></div>
+</div>
+<!-- Inactive Pins -->
+<div class="absolute top-[30%] left-[20%] flex flex-col items-center opacity-70">
+<div class="w-8 h-8 bg-primary-container rounded-full flex items-center justify-center border border-secondary/50 shadow-lg">
+<span class="material-symbols-outlined text-white/80 text-sm">location_on</span>
+</div>
+</div>
+<div class="absolute top-[60%] left-[35%] flex flex-col items-center opacity-70">
+<div class="w-8 h-8 bg-primary-container rounded-full flex items-center justify-center border border-secondary/50 shadow-lg">
+<span class="material-symbols-outlined text-white/80 text-sm">location_on</span>
+</div>
+</div>
+</div>
+<!-- Glass Search Bar Overlay -->
+<div class="absolute top-8 left-1/2 -translate-x-1/2 w-[90%] max-w-lg z-20">
+<div class="bg-white/15 backdrop-blur-2xl rounded-full px-6 py-4 flex items-center gap-4 shadow-2xl border border-white/10">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-slate-100 placeholder-slate-400 w-full font-headline font-medium" placeholder="Search curated properties..." type="text"/>
+<div class="flex gap-2">
+<button class="material-symbols-outlined text-slate-400 hover:text-white transition-colors">tune</button>
+</div>
+</div>
+</div>
+<!-- Floating Action Buttons (Right) -->
+<div class="absolute right-6 bottom-40 z-20 flex flex-col gap-4">
+<button class="w-14 h-14 rounded-full bg-white/15 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white shadow-xl hover:bg-white/25 transition-all">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+<button class="w-14 h-14 rounded-full bg-white/15 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white shadow-xl hover:bg-white/25 transition-all">
+<span class="material-symbols-outlined">layers</span>
+</button>
+</div>
+<!-- Property Preview Card (Bottom) -->
+<div class="absolute bottom-32 left-1/2 -translate-x-1/2 w-[95%] max-w-md z-30">
+<div class="bg-white/15 backdrop-blur-3xl squircle-32 p-4 flex gap-4 shadow-[0_40px_60px_-15px_rgba(0,0,0,0.5)] border border-white/10">
+<!-- Thumbnail -->
+<div class="w-32 h-32 flex-shrink-0 rounded-[24pt] overflow-hidden">
+<img alt="Property View" class="w-full h-full object-cover" data-alt="ultra-modern luxury villa exterior with architectural concrete, large glass walls, and infinity pool at twilight with internal warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHYNpVV4WWHEK_L-0Cwvs5sSKktQ-n1uyN9AiQjZ6CluHV1Z4m103-yPUqEohqAdh4TgC_l_S_ImOXNB-E54nqKe0rCNlugPKTZOnXcC5xh7jSg0LS8dCHjPaNTqWlPdG7bOqYXd6WoaHN_b1DYBU26FhuT2qeJ6-hJsd9czOQrKN2cpMKeGjvyM3LZ8ZeV8j4farr6n_9Fb9eiYQrHI90ScDg70nzJXj-tWFnopw4mb-dbQ-V1eVt1jA8rTX9CmnulsErkpupGsg"/>
+</div>
+<!-- Info -->
+<div class="flex-grow flex flex-col justify-between py-1">
+<div>
+<h3 class="text-primary-container font-headline font-extrabold text-xl leading-tight">The Obsidian Suite</h3>
+<p class="text-on-surface-variant text-sm flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]">near_me</span>
+                            Presidio Heights, SF
+                        </p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-lg">bed</span>
+<span class="text-xs font-bold text-slate-100">4</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-lg">bathtub</span>
+<span class="text-xs font-bold text-slate-100">3</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-lg">square_foot</span>
+<span class="text-xs font-bold text-slate-100">3.2k</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-2">
+<span class="text-primary-container font-headline font-black text-lg">$4,250,000</span>
+<button class="bg-primary text-white px-4 py-2 rounded-xl font-headline font-bold text-xs uppercase tracking-widest hover:scale-95 transition-transform">
+                            View Details
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-8 pb-8 pt-4 bg-white/15 dark:bg-slate-900/15 backdrop-blur-2xl rounded-t-[32pt] shadow-[0_-10px_40px_rgba(81,95,120,0.06)]">
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined" data-icon="home_max">home_max</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-indigo-400 dark:text-indigo-300 scale-110 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="explore" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Explore</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">AI Curator</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Messages</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Profile</span>
+</div>
+</nav>
+</body></html>

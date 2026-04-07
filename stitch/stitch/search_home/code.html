@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ethereal Estate - Search Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e1e3e4",
+                    "surface-container-low": "#f3f4f5",
+                    "on-tertiary-container": "#7f848e",
+                    "on-secondary-fixed": "#00046a",
+                    "outline": "#75777e",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#0d1c32",
+                    "tertiary-fixed": "#dee2ed",
+                    "inverse-surface": "#2e3132",
+                    "on-secondary-fixed-variant": "#333b9c",
+                    "background": "#f8f9fa",
+                    "tertiary": "#000000",
+                    "surface-dim": "#d9dadb",
+                    "secondary-container": "#8f98fe",
+                    "outline-variant": "#c5c6cd",
+                    "primary-fixed-dim": "#b9c7e4",
+                    "secondary-fixed-dim": "#bec2ff",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-tint": "#515f78",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#e1e3e4",
+                    "surface": "#f8f9fa",
+                    "on-surface-variant": "#44474d",
+                    "primary-fixed": "#d6e3ff",
+                    "on-primary-fixed": "#0d1c32",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#39475f",
+                    "inverse-primary": "#b9c7e4",
+                    "on-surface": "#191c1d",
+                    "on-error": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-background": "#191c1d",
+                    "secondary": "#4c54b6",
+                    "surface-bright": "#f8f9fa",
+                    "on-tertiary-fixed-variant": "#424750",
+                    "primary": "#000000",
+                    "on-primary-container": "#76849f",
+                    "surface-container": "#edeeef",
+                    "on-secondary-container": "#21298c",
+                    "tertiary-fixed-dim": "#c2c6d1",
+                    "tertiary-container": "#171c23",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#e0e0ff",
+                    "on-tertiary-fixed": "#171c23"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background: radial-gradient(at 0% 0%, #f8f9fa 0%, transparent 50%),
+                        radial-gradient(at 100% 0%, #e0e0ff 0%, transparent 50%),
+                        radial-gradient(at 100% 100%, #f3f4f5 0%, transparent 50%),
+                        radial-gradient(at 0% 100%, #dee2ed 0%, transparent 50%);
+            background-attachment: fixed;
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .squircle-32 {
+            border-radius: 32pt;
+        }
+        .squircle-24 {
+            border-radius: 24pt;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-white/15 backdrop-blur-xl shadow-[0_40px_40px_-15px_rgba(81,95,120,0.06)]">
+<div class="flex items-center gap-4">
+<button class="text-slate-950 hover:bg-white/20 p-2 rounded-full transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-xl font-extrabold text-slate-950 font-headline tracking-tight">Ethereal Estate</h1>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border border-white/20">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional man with a friendly expression in soft, natural studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdpRCk005ydvTYNhxqXV_Al-_DO2Jl0tTooALBZPKxYFHzqY6V6PYSOUwCOTd3qYiaKqbSjQSSZqf7Y_WQmZO1KJyOXDmfj-2F5PvyKMkfxdFiRYhxIPhkW9dCF0jtVea2GtMIM8zzagZhLOKjdnM4tLiCU-ml3A3a1lUitIz0FpaH8nPXTcyNLvdBAly3dEWbBQUv1GCzTNMAXv8HZw2ZLgL2XuvQfE6x4yxiZWw6PplA7A6Av0Li0ac-xP5LpGbYFO6Nh-S0pbw"/>
+</div>
+</div>
+</header>
+<main class="pt-28 px-6 max-w-7xl mx-auto">
+<!-- Hero Section -->
+<section class="mb-12">
+<h2 class="text-4xl md:text-5xl font-headline font-extrabold tracking-tight text-primary mb-8 leading-tight">
+                Welcome, Julian
+            </h2>
+<!-- Search Bar -->
+<div class="relative group">
+<div class="absolute inset-y-0 left-5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</div>
+<input class="w-full bg-white/20 backdrop-blur-2xl border-0 ring-1 ring-white/30 focus:ring-2 focus:ring-secondary py-5 pl-14 pr-6 squircle-24 text-lg shadow-xl shadow-slate-200/20 transition-all outline-none" placeholder="Find your sanctuary..." type="text"/>
+</div>
+</section>
+<!-- Bento Grid: Featured Curations -->
+<section>
+<div class="flex justify-between items-end mb-8">
+<div>
+<span class="text-secondary font-semibold tracking-wider text-xs uppercase mb-2 block">The Selection</span>
+<h3 class="text-3xl font-headline font-bold">Featured Curations</h3>
+</div>
+<button class="text-sm font-semibold text-secondary hover:underline underline-offset-4">Explore All</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Large Featured Card -->
+<div class="md:col-span-8 group relative overflow-hidden squircle-32 bg-white/10 backdrop-blur-sm shadow-xl shadow-slate-200/40 border border-white/20 aspect-[16/10] md:aspect-auto md:h-[600px]">
+<img alt="Luxury Villa" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Ultra-modern architectural villa with glass walls reflecting a pink sunset sky and an infinity pool" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAM-4wF3AdS430cLzThNWK4V9ZTaCHddu8UzuBY9_bBthT4kfXLOTWxUF4NPAV6M0c9qI-ENDJJRr3M7W6HWhqq8MK86EYuGrY5q1mIxfkUwuI04LprqHG0WndlIFEOpjCmj0zo9mHnxfkEkG1dDqSuSXo0bTbBK7iJnJPz1jWJYWuCqeJopHF8N8Krxp3i5xS1_Q9EBZREK2QdhMLAbc4jxZwESilEWc84AppYkGmp9T8IOi6kSvDG2NMfsHI0_pcgF1v2ysqbxhk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-0 left-0 p-10 w-full backdrop-blur-md bg-primary-container/15 border-t border-white/10">
+<div class="flex justify-between items-end">
+<div>
+<h4 class="text-white text-3xl font-headline font-bold mb-2">The Glass Obsidian</h4>
+<p class="text-slate-200 font-body text-lg">Beverly Hills, CA • $12,500,000</p>
+</div>
+<div class="bg-secondary p-4 squircle-24 text-white hover:scale-110 transition-transform cursor-pointer shadow-lg">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Featured Cards Stack -->
+<div class="md:col-span-4 flex flex-col gap-8">
+<div class="flex-1 group relative overflow-hidden squircle-32 bg-white/10 backdrop-blur-sm shadow-xl shadow-slate-200/40 border border-white/20">
+<img alt="Coastal Retreat" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Luxury coastal estate with white Mediterranean architecture overlooking turquoise ocean waters at dawn" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjUSjEKdi-U2h5q1TR0oYSt4H51v3uF1nONog5aJm4m5gf5amM5KayopGFLFPXfbFwtibQfcsoCstw3oqtfm5G1AXozpIfhCTt8uiHssaHC079ryDeYbnhAAYOGDCpnGf0xmU5glzpS2Kd7RjgGC-2ZfN7NFCAIfJCbE1RqaotXpbHTef_6UtoUhFE4nFSp-aeLwdXqDlHmB54ThbUGfb2Y2b86Buydhz7KoOl2ou4WT3d3PTgF4pREckV_5zRRktk7d090914Gdo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 pr-6">
+<h4 class="text-white text-xl font-headline font-bold">Azure Cove</h4>
+<p class="text-slate-200 text-sm">Malibu, CA</p>
+</div>
+</div>
+<div class="flex-1 group relative overflow-hidden squircle-32 bg-white/10 backdrop-blur-sm shadow-xl shadow-slate-200/40 border border-white/20">
+<img alt="Desert Oasis" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Minimalist concrete desert house with warm interior lighting set against a starry night sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOMpgXxdVoUgZd07zA8xpN34sI-AdHlbnMA-Uy1wvX-KcNLYZh-ezal57jKZyM2qAkAViKWu6HO2cDfARSE7N7QUJiCd_EWiaWpEq7Z2sP-k8I5SG0CZeI9_52CFpIdQwvsENp3zIbAE0jqDYGDIKaPg0t_QwTmB_i4otkh16kAv6hq-o6hJmbq0MvG7Vhj8Wti5PjjVAXBujqEdrQm02tOXfJaojAxDDyyohTZ4JqR1_CZUuwYQ-YWymuLgb_eej7ggAaCYICaW8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 pr-6">
+<h4 class="text-white text-xl font-headline font-bold">Lunar Sanctuary</h4>
+<p class="text-slate-200 text-sm">Joshua Tree, AZ</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Horizontal Scroll -->
+<section class="mt-16 overflow-hidden">
+<h3 class="text-xl font-headline font-bold mb-6">Collections</h3>
+<div class="flex gap-6 overflow-x-auto pb-8 no-scrollbar -mx-6 px-6">
+<div class="flex-shrink-0 w-48 h-64 squircle-32 relative overflow-hidden border border-white/30 shadow-lg shadow-slate-200/30">
+<img class="w-full h-full object-cover" data-alt="Close-up of minimalist marble kitchen island with gold fixtures and soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa5Yc7aR-hYidl4HiUQCy34uEy1ezgRYF-7vwpDu9xpFbJMYH9rIzQbTu4BlegEFyT7uKn2rjJ7X5ENIKwsEpI57y5E05ZUj8xfzXQkvEmmvqzUaYp-S6iscqKp8JWyKx5pUafkoNrU-_Y2WN7iF-GdneZyE1TxiYoFwI5S9EtTBNcq_hG_WtwRNNlcsegK_faRJF0ch29RHSc8sF3674yJKhWmxd7JKY4W1AW1HwE6XF6P1I_XlnK1q_5gfe0VQPbTpvttdA_1xY"/>
+<div class="absolute inset-0 bg-black/30 flex items-end p-4">
+<span class="text-white font-semibold">Penthouse</span>
+</div>
+</div>
+<div class="flex-shrink-0 w-48 h-64 squircle-32 relative overflow-hidden border border-white/30 shadow-lg shadow-slate-200/30">
+<img class="w-full h-full object-cover" data-alt="Scandinavian style living room with light wood floors and large windows showing autumn trees" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBubJmwvT2RLA3e9RrJ8aSRwJyrLfsFB0ol20stTeGLnYf6H9U6GhPwQaf-6WOBgqq2ZPJSQ2l9r4emZQ6dsiE29o6a3gf7hB45TwHckiA2QguXDQrSNjFqnIQV053Cp2RgQkro20yMWrShRPZYW73NtAU_91OTvR5uJfHBJzsjHFk8UWUr0RgOol2fSVbSclcVOIgJARGhDQWBjDjxm3a_UtrDqRcSOtUBH-ZFvY1-zLFpO5ElkBGDllcV3_lc4s_YrHcChVPB6Bs"/>
+<div class="absolute inset-0 bg-black/30 flex items-end p-4">
+<span class="text-white font-semibold">Lofts</span>
+</div>
+</div>
+<div class="flex-shrink-0 w-48 h-64 squircle-32 relative overflow-hidden border border-white/30 shadow-lg shadow-slate-200/30">
+<img class="w-full h-full object-cover" data-alt="Exterior of a modern black geometric house surrounded by tall pine trees in the snow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO-D3eUqulQKrJM2KeaELhiit31ELOWV8N_RNNW-VraCJTOppoIvIHrrNCsiPm7g70U8bPW8j48KbC35BikiqFTV6RZPe1PY0c9R0fd8Zw6P3vEr-bNrrGuVPgYsWOB_INR1xonheIUMRsHaiP5SFrs6dHGo-MvcwugXeCIYgtTClz3ScapYz3a31GdCNfTNdxIQWXwm8uls1HokdE21pZ_f4vSlT9RCYzKe187Mm4xHuLTPPzM5BNo4aCVNuWEVEEdkx4zJsADfg"/>
+<div class="absolute inset-0 bg-black/30 flex items-end p-4">
+<span class="text-white font-semibold">Off-Grid</span>
+</div>
+</div>
+<div class="flex-shrink-0 w-48 h-64 squircle-32 relative overflow-hidden border border-white/30 shadow-lg shadow-slate-200/30">
+<img class="w-full h-full object-cover" data-alt="Lush green garden courtyard with a small stone fountain and climbing ivy on brick walls" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcSf-0uZVQwFou2pODTKXM_jyDtAvJ3WpWASARY3699r8IVxfn-0QQg2F-wHwTRs956k_5ESoCOFlcDH2Vw_2wh3qObvXJUvfk2kfQymvoDjqGfAKe8AyJxMmkxdxX4Lg_TH2uUproIHxqGRxlj1oA_rIQdBJsogk4_q6mSnp71rL4WzMVXQaptT4fCObPiyhneX1lHWOz4tLzY6Vuhmvh5ezt8PURwlpHflnEGZRDhHI_aNvV3Ov2fRGzL81yHvRn90wnicaQpVQ"/>
+<div class="absolute inset-0 bg-black/30 flex items-end p-4">
+<span class="text-white font-semibold">Secret Gardens</span>
+</div>
+</div>
+<div class="flex-shrink-0 w-48 h-64 squircle-32 relative overflow-hidden border border-white/30 shadow-lg shadow-slate-200/30">
+<img class="w-full h-full object-cover" data-alt="Traditional wood-paneled library with floor-to-ceiling bookshelves and a green leather armchair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYKHWpnUHSl9OfQ2TFLFtbNeNazdZqZb4oVBdS8R6IUrXZcFczjqHBob8zK_S3vWJER1F3QmXaE5sCap-gyXAQb5Kfr6hgOAQSHzWtRw03fLN0-iecX2lSPa_hTLGkbZIKGzpOSBmV_vFAFIQ4nQdSyptmvSctaIQwT1fTva4M5elcW9a9KYnJHDvXA9wZwqZVLcViftHazQX7lYlq0n6BywjsVcPQOA_61zzLYmKudg6sOnadCBUtNMBpglZjNm2HRblDPqZjQlE"/>
+<div class="absolute inset-0 bg-black/30 flex items-end p-4">
+<span class="text-white font-semibold">Historic</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-8 pb-8 pt-4 bg-white/15 backdrop-blur-2xl rounded-t-[32pt] shadow-[0_-10px_40px_rgba(81,95,120,0.06)]">
+<!-- Home -->
+<button class="flex flex-col items-center justify-center text-slate-400 opacity-60 hover:opacity-100 transition-opacity scale-90 duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="home_max">home_max</span>
+</button>
+<!-- Explore (Active) -->
+<button class="flex flex-col items-center justify-center text-secondary scale-110 transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="explore" style="font-variation-settings: 'FILL' 1;">explore</span>
+<div class="w-1 h-1 bg-secondary rounded-full mt-1"></div>
+</button>
+<!-- Curator AI -->
+<button class="flex flex-col items-center justify-center text-slate-400 opacity-60 hover:opacity-100 transition-opacity scale-90 duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+</button>
+<!-- Messages -->
+<button class="flex flex-col items-center justify-center text-slate-400 opacity-60 hover:opacity-100 transition-opacity scale-90 duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+</button>
+<!-- Profile -->
+<button class="flex flex-col items-center justify-center text-slate-400 opacity-60 hover:opacity-100 transition-opacity scale-90 duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+</nav>
+<!-- FAB (Suppressed on Home/Feed as per guidelines, but showing how it might look) -->
+<!-- Suppressed for search focus as per instructions to hide when not primary action -->
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</body></html>

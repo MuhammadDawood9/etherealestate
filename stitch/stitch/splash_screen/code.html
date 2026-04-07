@@ -1,0 +1,145 @@
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ethereal Estate - Splash</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e1e3e4",
+                        "surface-container-low": "#f3f4f5",
+                        "on-tertiary-container": "#7f848e",
+                        "on-secondary-fixed": "#00046a",
+                        "outline": "#75777e",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#0d1c32",
+                        "tertiary-fixed": "#dee2ed",
+                        "inverse-surface": "#2e3132",
+                        "on-secondary-fixed-variant": "#333b9c",
+                        "background": "#f8f9fa",
+                        "tertiary": "#000000",
+                        "surface-dim": "#d9dadb",
+                        "secondary-container": "#8f98fe",
+                        "outline-variant": "#c5c6cd",
+                        "primary-fixed-dim": "#b9c7e4",
+                        "secondary-fixed-dim": "#bec2ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-tint": "#515f78",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface": "#f8f9fa",
+                        "on-surface-variant": "#44474d",
+                        "primary-fixed": "#d6e3ff",
+                        "on-primary-fixed": "#0d1c32",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#39475f",
+                        "inverse-primary": "#b9c7e4",
+                        "on-surface": "#191c1d",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1d",
+                        "secondary": "#4c54b6",
+                        "surface-bright": "#f8f9fa",
+                        "on-tertiary-fixed-variant": "#424750",
+                        "primary": "#000000",
+                        "on-primary-container": "#76849f",
+                        "surface-container": "#edeeef",
+                        "on-secondary-container": "#21298c",
+                        "tertiary-fixed-dim": "#c2c6d1",
+                        "tertiary-container": "#171c23",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#e0e0ff",
+                        "on-tertiary-fixed": "#171c23"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .mesh-gradient-bg {
+            background: 
+                radial-gradient(at 0% 0%, #F0F4FF 0%, transparent 50%),
+                radial-gradient(at 100% 0%, #FFF9E6 0%, transparent 50%),
+                radial-gradient(at 100% 100%, #FFF5F7 0%, transparent 50%),
+                radial-gradient(at 0% 100%, #F8F9FA 0%, transparent 50%),
+                #FFFFFF;
+            background-size: cover;
+        }
+
+        .squircle-32 {
+            border-radius: 32pt;
+        }
+
+        .logo-glow {
+            filter: drop-shadow(0 0 20px rgba(76, 84, 182, 0.1));
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-background overflow-hidden antialiased">
+<!-- Splash Screen Wrapper -->
+<main class="relative h-screen w-full flex items-center justify-center mesh-gradient-bg">
+<!-- Background Texture -->
+<div class="absolute inset-0 opacity-40 pointer-events-none" data-alt="subtle organic grain texture over a soft pearlescent mesh gradient background to add depth and luxury feel" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBba0vQN25HlVtABULRm_pqfdo4q-74WYh4yS7BgPMk4OvhBQwW1IxL66zXia5ye_CYNXbQkLx_cbbcxL2KTJroFQduL99eSN6uXP_pYrDw7BktldC_E58RYckTNpWOsaQvqZKX-eT0Gp0zIj5guSxYK7nA9ooT-L_bsZLTkG3X4QvHBuUfKgcHsl64NYpAXrzlXD-XdR4xivcEiXMsLc3rIHOkWGrB2RbM60hLOwlnMRv82Ory66JsCyOsDmwHfj_zxkW98WVVoQc');">
+</div>
+<!-- Center Identity -->
+<div class="relative z-10 flex flex-col items-center justify-center text-center px-6">
+<!-- Minimalist House Outline Logo -->
+<div class="mb-8 p-6 bg-white/10 backdrop-blur-xl squircle-32 shadow-[0_40px_40px_-15px_rgba(81,95,120,0.06)] border border-white/20 logo-glow">
+<span class="material-symbols-outlined text-primary text-[84px] leading-none" data-icon="house">
+                    house
+                </span>
+</div>
+<!-- Brand Typography -->
+<h1 class="font-headline font-extrabold text-5xl md:text-6xl text-primary tracking-tighter mb-4">
+                Ethereal Estate
+            </h1>
+<p class="font-body text-on-primary-container text-lg max-w-xs mx-auto leading-relaxed opacity-80">
+                Curating celestial living spaces for the modern visionary.
+            </p>
+</div>
+<!-- Footer App Version (Glassmorphic Overlay) -->
+<div class="absolute bottom-12 left-1/2 -translate-x-1/2 z-20">
+<div class="bg-white/15 backdrop-blur-2xl px-8 py-3 squircle-32 shadow-[0_10px_40px_rgba(81,95,120,0.06)] border border-white/30 flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
+<span class="font-headline font-bold text-sm text-primary tracking-widest">
+                    v1.0.2
+                </span>
+</div>
+</div>
+<!-- Abstract Decorative Elements -->
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-secondary/5 blur-[120px] rounded-full"></div>
+<div class="absolute -bottom-24 -right-24 w-96 h-96 bg-primary-fixed-dim/10 blur-[120px] rounded-full"></div>
+</main>
+<!-- Invisible Navigation Shells (Suppressed for focused Splash experience per "The Destination Rule") -->
+<!-- [SUPPRESSED]: TopAppBar -->
+<!-- [SUPPRESSED]: BottomNavBar -->
+<!-- [SUPPRESSED]: NavigationDrawer -->
+</body></html>

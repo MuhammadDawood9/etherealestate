@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ethereal Estate - VR Walkthrough</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e1e3e4",
+                        "surface-container-low": "#f3f4f5",
+                        "on-tertiary-container": "#7f848e",
+                        "on-secondary-fixed": "#00046a",
+                        "outline": "#75777e",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#0d1c32",
+                        "tertiary-fixed": "#dee2ed",
+                        "inverse-surface": "#2e3132",
+                        "on-secondary-fixed-variant": "#333b9c",
+                        "background": "#f8f9fa",
+                        "tertiary": "#000000",
+                        "surface-dim": "#d9dadb",
+                        "secondary-container": "#8f98fe",
+                        "outline-variant": "#c5c6cd",
+                        "primary-fixed-dim": "#b9c7e4",
+                        "secondary-fixed-dim": "#bec2ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-tint": "#515f78",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface": "#f8f9fa",
+                        "on-surface-variant": "#44474d",
+                        "primary-fixed": "#d6e3ff",
+                        "on-primary-fixed": "#0d1c32",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#39475f",
+                        "inverse-primary": "#b9c7e4",
+                        "on-surface": "#191c1d",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1d",
+                        "secondary": "#4c54b6",
+                        "surface-bright": "#f8f9fa",
+                        "on-tertiary-fixed-variant": "#424750",
+                        "primary": "#000000",
+                        "on-primary-container": "#76849f",
+                        "surface-container": "#edeeef",
+                        "on-secondary-container": "#21298c",
+                        "tertiary-fixed-dim": "#c2c6d1",
+                        "tertiary-container": "#171c23",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#e0e0ff",
+                        "on-tertiary-fixed": "#171c23"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .squircle {
+            border-radius: 32pt;
+        }
+        .glass-node {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .viewport-gradient {
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.4) 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-background overflow-hidden">
+<!-- AR/VR Viewport Container -->
+<main class="relative h-screen w-full bg-slate-900 flex flex-col items-center justify-center overflow-hidden">
+<!-- Live Camera Feed (Background Image) -->
+<div class="absolute inset-0 z-0">
+<img alt="VR Living Room View" class="w-full h-full object-cover" data-alt="Ultra-modern minimalist living room with floor-to-ceiling windows, soft afternoon sunlight, neutral tones, and designer furniture seen through a wide-angle lens" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyTMD2fP3NgWH-CyoSjZm83g9zBcJseozfFm_LeZoQl75NEY6YhPnwsoyH9t8cBrrSSb4NAcCllUmpozYzZqbjINKlsvyP7PUOEmlVSjjjEKS7F2DaTjF1YLywIkBnC1lO30EUvGqXZx2VYw0HKcUF0SyGalPslhSlnT17PkfoXqNtCya-i5YlH1vXqkiwb4O0wl3pvDs7RQD5u7D9eeEbX0xsxuQIBP09lGnwNmIdG0vz5IuhA4bPMFunsj-g5XzPJnhYsnhv1fk"/>
+<!-- Ambient Vignette for Depth -->
+<div class="absolute inset-0 viewport-gradient pointer-events-none"></div>
+</div>
+<!-- Exit Action (Top Right) -->
+<div class="absolute top-8 right-8 z-[70]">
+<button class="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary squircle font-headline font-bold shadow-2xl transition-transform active:scale-95">
+<span>Exit View</span>
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<!-- Interactive AR Glass Nodes -->
+<!-- Kitchen Node -->
+<div class="absolute top-[40%] left-[30%] z-50 flex flex-col items-center group cursor-pointer">
+<div class="glass-node w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all group-hover:scale-110 group-hover:bg-white/30">
+<div class="w-3 h-3 bg-white rounded-full animate-pulse"></div>
+</div>
+<div class="mt-4 px-4 py-2 bg-white/80 backdrop-blur-md rounded-full shadow-xl">
+<span class="font-headline font-bold text-primary-container tracking-tight">Kitchen</span>
+</div>
+</div>
+<!-- Master Bath Node -->
+<div class="absolute top-[55%] right-[25%] z-50 flex flex-col items-center group cursor-pointer">
+<div class="glass-node w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all group-hover:scale-110 group-hover:bg-white/30">
+<div class="w-3 h-3 bg-white rounded-full animate-pulse"></div>
+</div>
+<div class="mt-4 px-4 py-2 bg-white/80 backdrop-blur-md rounded-full shadow-xl">
+<span class="font-headline font-bold text-primary-container tracking-tight">Master Bath</span>
+</div>
+</div>
+<!-- Teleport Indicator (Center Focus) -->
+<div class="pointer-events-none absolute inset-0 flex items-center justify-center z-40">
+<div class="w-24 h-24 border-2 border-white/20 rounded-full flex items-center justify-center">
+<div class="w-1 h-1 bg-white rounded-full"></div>
+<div class="absolute w-full h-full border border-white/10 rounded-full animate-ping opacity-20"></div>
+</div>
+</div>
+<!-- Bottom Frosted Controls Shell -->
+<div class="absolute bottom-12 left-1/2 -translate-x-1/2 z-[60] w-[90%] max-w-2xl">
+<div class="bg-white/10 backdrop-blur-3xl squircle p-4 flex items-center justify-between shadow-2xl border border-white/10">
+<!-- Room Info -->
+<div class="px-6 border-r border-white/10 hidden md:block">
+<p class="text-[10px] uppercase tracking-widest text-white/60 font-medium">Viewing</p>
+<h2 class="text-white font-headline font-bold text-lg">Main Living Space</h2>
+</div>
+<!-- Interaction Cluster -->
+<div class="flex items-center gap-2 flex-1 justify-around md:justify-center px-4">
+<button class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/15 text-white hover:bg-white/25 transition-all">
+<span class="material-symbols-outlined" data-icon="photo_camera">photo_camera</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/15 text-white hover:bg-white/25 transition-all">
+<span class="material-symbols-outlined" data-icon="videocam">videocam</span>
+</button>
+<button class="w-14 h-14 flex items-center justify-center rounded-2xl bg-indigo-400 text-primary-container hover:scale-105 transition-all">
+<span class="material-symbols-outlined" data-icon="360" style="font-variation-settings: 'FILL' 1;">360</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/15 text-white hover:bg-white/25 transition-all">
+<span class="material-symbols-outlined" data-icon="measure">measuring_tape</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/15 text-white hover:bg-white/25 transition-all">
+<span class="material-symbols-outlined" data-icon="light_mode">light_mode</span>
+</button>
+</div>
+<!-- Secondary Action -->
+<div class="hidden lg:block border-l border-white/10 px-6">
+<button class="px-6 py-2.5 bg-white text-primary-container squircle text-sm font-bold shadow-lg hover:shadow-indigo-500/20 transition-all">
+                        Book Tour
+                    </button>
+</div>
+</div>
+</div>
+<!-- Navigation Drawer Mockup (Hidden by default, triggered by menu) -->
+<!-- Rendered based on JSON structure if this were a top level, but for walkthrough focused suppression is used -->
+<!-- Status Bar Overlay (AR Style) -->
+<div class="absolute top-8 left-8 z-[70] flex items-center gap-4">
+<div class="w-12 h-12 squircle bg-white/10 backdrop-blur-xl flex items-center justify-center text-white border border-white/10">
+<span class="material-symbols-outlined" data-icon="navigation">navigation</span>
+</div>
+<div class="text-white">
+<span class="block text-[10px] uppercase tracking-tighter opacity-70">Experience Mode</span>
+<span class="block font-headline font-bold text-sm">Ultra-High Definition</span>
+</div>
+</div>
+</main>
+<!-- Side Map Overlay (Small Tonal Element) -->
+<div class="fixed top-32 right-8 z-[60] w-32 h-32 squircle overflow-hidden border border-white/10 shadow-2xl opacity-80 hover:opacity-100 transition-opacity cursor-crosshair">
+<img alt="Minimap View" class="w-full h-full object-cover" data-alt="Stylized architectural floor plan top view with clean black lines on a white background and a blue dot indicating current position" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP71_P7-BIS0-Omny2hPsA8VIMCgC4rbilJID0PXEpUcoLQpoR3Hoy_keOxmBzJwAnzNALiPHWWCPsMcKo9Ncm4kkMfrQFXkfUw1wd6rrWlN6r_SGtvc5-vkF-NaD8GhBfNVywlZ8PIKY9f7OquhVProNthzzQ5gZfAUpkUjyST_U4c3w2HNHY26AQukzjicvbBJeHS_XYDK3_UEIv95tSNNN0cxSR5cI90CGQDzuAtRur-FSukLHrnUYzMhYxUqm2PENW0y9eyQc"/>
+<div class="absolute inset-0 bg-indigo-500/10 pointer-events-none"></div>
+</div>
+</body></html>

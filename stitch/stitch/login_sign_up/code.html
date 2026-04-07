@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ethereal Estate - Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e1e3e4",
+                    "surface-container-low": "#f3f4f5",
+                    "on-tertiary-container": "#7f848e",
+                    "on-secondary-fixed": "#00046a",
+                    "outline": "#75777e",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#0d1c32",
+                    "tertiary-fixed": "#dee2ed",
+                    "inverse-surface": "#2e3132",
+                    "on-secondary-fixed-variant": "#333b9c",
+                    "background": "#f8f9fa",
+                    "tertiary": "#000000",
+                    "surface-dim": "#d9dadb",
+                    "secondary-container": "#8f98fe",
+                    "outline-variant": "#c5c6cd",
+                    "primary-fixed-dim": "#b9c7e4",
+                    "secondary-fixed-dim": "#bec2ff",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-tint": "#515f78",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#e1e3e4",
+                    "surface": "#f8f9fa",
+                    "on-surface-variant": "#44474d",
+                    "primary-fixed": "#d6e3ff",
+                    "on-primary-fixed": "#0d1c32",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#39475f",
+                    "inverse-primary": "#b9c7e4",
+                    "on-surface": "#191c1d",
+                    "on-error": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-background": "#191c1d",
+                    "secondary": "#4c54b6",
+                    "surface-bright": "#f8f9fa",
+                    "on-tertiary-fixed-variant": "#424750",
+                    "primary": "#000000",
+                    "on-primary-container": "#76849f",
+                    "surface-container": "#edeeef",
+                    "on-secondary-container": "#21298c",
+                    "tertiary-fixed-dim": "#c2c6d1",
+                    "tertiary-container": "#171c23",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#e0e0ff",
+                    "on-tertiary-fixed": "#171c23"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background: radial-gradient(at 0% 0%, #f8f9fa 0%, transparent 50%),
+                        radial-gradient(at 100% 0%, #e0e0ff 0%, transparent 50%),
+                        radial-gradient(at 100% 100%, #f3f4f5 0%, transparent 50%),
+                        radial-gradient(at 0% 100%, #d6e3ff 0%, transparent 50%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        .squircle-32 {
+            border-radius: 32pt;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body text-on-background flex items-center justify-center p-6">
+<!-- Auth Container -->
+<main class="w-full max-w-[480px] relative z-10">
+<!-- Branding Header -->
+<div class="text-center mb-10">
+<h1 class="font-headline font-extrabold text-4xl tracking-tighter text-primary">
+                Ethereal Estate
+            </h1>
+<p class="mt-2 text-on-surface-variant/70 font-medium tracking-wide text-sm uppercase">The Celestial Curator</p>
+</div>
+<!-- Main Panel: Glassmorphic Squircle -->
+<div class="bg-white/15 backdrop-blur-[20px] border border-white/20 squircle-32 p-8 md:p-12 shadow-[0_40px_40px_-15px_rgba(81,95,120,0.06)]">
+<header class="mb-8">
+<h2 class="font-headline font-bold text-2xl text-primary">Welcome back</h2>
+<p class="text-on-surface-variant mt-1">Sign in to your curated collection.</p>
+</header>
+<!-- Social Auth Group -->
+<div class="space-y-3 mb-8">
+<button class="w-full flex items-center justify-center gap-3 py-4 px-6 bg-primary text-on-primary font-medium rounded-md hover:opacity-90 transition-all active:scale-[0.98]">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 384 512"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"></path></svg>
+                    Continue with Apple ID
+                </button>
+<button class="w-full flex items-center justify-center gap-3 py-4 px-6 bg-white/10 backdrop-blur-xl border border-white/20 text-primary font-medium rounded-md hover:bg-white/20 transition-all active:scale-[0.98]">
+<svg class="w-5 h-5" viewbox="0 0 48 48"><path d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" fill="#EA4335"></path><path d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" fill="#4285F4"></path><path d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24s.92 7.54 2.56 10.78l7.97-6.19z" fill="#FBBC05"></path><path d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" fill="#34A853"></path><path d="M0 0h48v48H0z" fill="none"></path></svg>
+                    Continue with Google
+                </button>
+</div>
+<!-- Divider -->
+<div class="relative flex items-center mb-8">
+<div class="flex-grow border-t border-outline-variant/30"></div>
+<span class="flex-shrink mx-4 text-on-surface-variant/50 text-xs font-semibold tracking-widest uppercase">Or email</span>
+<div class="flex-grow border-t border-outline-variant/30"></div>
+</div>
+<!-- Form -->
+<form class="space-y-5">
+<div>
+<label class="block text-xs font-bold text-on-surface-variant/80 uppercase tracking-widest mb-1.5 ml-1">Email Address</label>
+<input class="w-full bg-surface-container-low/30 border border-white/20 focus:border-secondary focus:ring-0 rounded-xl px-4 py-4 backdrop-blur-md transition-all text-on-surface placeholder:text-on-surface-variant/30" placeholder="curator@ethereal.estate" type="email"/>
+</div>
+<div>
+<div class="flex justify-between items-center mb-1.5">
+<label class="block text-xs font-bold text-on-surface-variant/80 uppercase tracking-widest ml-1">Password</label>
+<a class="text-xs font-bold text-secondary-container hover:text-secondary transition-colors uppercase tracking-widest" href="#">Forgot Password?</a>
+</div>
+<input class="w-full bg-surface-container-low/30 border border-white/20 focus:border-secondary focus:ring-0 rounded-xl px-4 py-4 backdrop-blur-md transition-all text-on-surface placeholder:text-on-surface-variant/30" placeholder="••••••••" type="password"/>
+</div>
+<button class="w-full bg-primary text-on-primary py-5 rounded-xl font-headline font-bold text-lg shadow-xl shadow-primary/10 hover:shadow-primary/20 transition-all hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] mt-4" type="submit">
+                    Enter the Gallery
+                </button>
+</form>
+<footer class="mt-8 text-center">
+<p class="text-on-surface-variant text-sm">
+                    New to the collection? 
+                    <a class="text-primary font-bold hover:underline underline-offset-4 decoration-secondary-container/50" href="#">Create Account</a>
+</p>
+</footer>
+</div>
+<!-- Decorative Elements (Mesh Polish) -->
+<div class="absolute -top-20 -left-20 w-64 h-64 bg-secondary-container/20 rounded-full blur-[80px] -z-10"></div>
+<div class="absolute -bottom-20 -right-20 w-64 h-64 bg-primary-fixed/30 rounded-full blur-[80px] -z-10"></div>
+</main>
+<!-- Bottom Utility (Hidden on small screens) -->
+<div class="fixed bottom-8 left-0 w-full flex justify-center gap-8 text-[10px] font-bold text-on-surface-variant/40 uppercase tracking-widest pointer-events-none md:pointer-events-auto">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Curation Standards</a>
+</div>
+</body></html>

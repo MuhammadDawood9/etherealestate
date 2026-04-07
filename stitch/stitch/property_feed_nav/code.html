@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;family=Inter:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e1e3e4",
+                        "surface-container-low": "#f3f4f5",
+                        "on-tertiary-container": "#7f848e",
+                        "on-secondary-fixed": "#00046a",
+                        "outline": "#75777e",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#0d1c32",
+                        "tertiary-fixed": "#dee2ed",
+                        "inverse-surface": "#2e3132",
+                        "on-secondary-fixed-variant": "#333b9c",
+                        "background": "#f8f9fa",
+                        "tertiary": "#000000",
+                        "surface-dim": "#d9dadb",
+                        "secondary-container": "#8f98fe",
+                        "outline-variant": "#c5c6cd",
+                        "primary-fixed-dim": "#b9c7e4",
+                        "secondary-fixed-dim": "#bec2ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-tint": "#515f78",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface": "#f8f9fa",
+                        "on-surface-variant": "#44474d",
+                        "primary-fixed": "#d6e3ff",
+                        "on-primary-fixed": "#0d1c32",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#39475f",
+                        "inverse-primary": "#b9c7e4",
+                        "on-surface": "#191c1d",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1d",
+                        "secondary": "#4c54b6",
+                        "surface-bright": "#f8f9fa",
+                        "on-tertiary-fixed-variant": "#424750",
+                        "primary": "#000000",
+                        "on-primary-container": "#76849f",
+                        "surface-container": "#edeeef",
+                        "on-secondary-container": "#21298c",
+                        "tertiary-fixed-dim": "#c2c6d1",
+                        "tertiary-container": "#171c23",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#e0e0ff",
+                        "on-tertiary-fixed": "#171c23"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "32pt",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .squircle-32 { border-radius: 32pt; }
+        .squircle-24 { border-radius: 24pt; }
+        .mesh-gradient {
+            background: radial-gradient(at 0% 0%, #f8f9fa 0%, transparent 50%),
+                        radial-gradient(at 100% 0%, #e0e0ff 0%, transparent 50%),
+                        radial-gradient(at 100% 100%, #f3f4f5 0%, transparent 50%),
+                        radial-gradient(at 0% 100%, #dee2ed 0%, transparent 50%);
+            background-color: #f8f9fa;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body bg-background min-h-screen mesh-gradient text-on-surface selection:bg-secondary/30">
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-white/15 backdrop-blur-xl shadow-[0_40px_40px_-15px_rgba(81,95,120,0.06)]">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-white/20 transition-all rounded-full scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-950" data-icon="menu">menu</span>
+</button>
+<h1 class="text-xl font-extrabold text-slate-950 font-headline tracking-tight">Ethereal Estate</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8 items-center">
+<a class="font-manrope font-bold text-indigo-400" href="#">Discover</a>
+<a class="font-manrope font-bold text-slate-600 hover:text-indigo-400 transition-colors" href="#">Saved</a>
+<a class="font-manrope font-bold text-slate-600 hover:text-indigo-400 transition-colors" href="#">Messages</a>
+</nav>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-white/30">
+<img alt="User profile" data-alt="professional male portrait with soft studio lighting and neutral background for user profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhHpWUrY3HEujzN-U82isaZWJeK5o1DUmLQI4s81TjLPPjwdfJuoVwnyRQR_W9_DCgKhsEBVLW-7T4bXMoGYQF5ohCLN6WAQ3crIh0tUI7J7eUuxM1rJQVEwhK4sS5ZnbAHRdjw74-ISz-FzmSjvqf98uZyILdlulW0DqSKDrFb6KU38vLzm52V4yy0f_tPStjvjrD9c4EDBsfRbYFcx-9orGEQ4UUIwplYYryKfPhCHgoB9OE5zNIbGmcYa81EhCUctcUXjxkAYE"/>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-40 px-6 max-w-7xl mx-auto">
+<header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="max-w-2xl">
+<h2 class="text-5xl md:text-6xl font-headline font-extrabold text-primary tracking-tighter leading-tight">
+                    Available Properties
+                </h2>
+<p class="mt-4 text-on-surface-variant text-lg font-light tracking-wide">
+                    Curated sanctuaries designed for the celestial living experience.
+                </p>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-6 py-3 bg-white/15 backdrop-blur-xl border border-white/30 squircle-24 flex items-center gap-2 hover:bg-white/30 transition-all text-on-surface font-medium">
+<span class="material-symbols-outlined text-secondary" data-icon="tune">tune</span>
+                    Filter
+                </button>
+</div>
+</header>
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+<!-- Property Card 1 -->
+<a class="group relative block bg-white/15 backdrop-blur-2xl squircle-32 border border-white/30 shadow-[0_40px_40px_-15px_rgba(81,95,120,0.06)] p-4 transition-all duration-300 hover:translate-y-[-8px]" href="#" onclick="event.preventDefault();">
+<div class="relative overflow-hidden squircle-24 aspect-[4/3] mb-6">
+<img alt="Lustre Property" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" data-alt="ultra-modern luxury villa with large glass windows at dusk with warm interior lighting and architectural pools" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCV0r0KIZCrfNysTErmc60hRhY2WOox_vj2F0e6D0baIFV8cEWIGiygFMAHX12yzxcIWKMDPl0ZAmF8z0ScAKKBbd57NcBAxTogsVpKRvazmV6vA2ciCY9q8xFNe75r1C_PJI9bvelns7Yt7cWQ2JziyhzzM4qQLEVu6l7Y-HtQuGrRuBpXrcDIueXMYN1ryUUiv50M2pcQjh3FQBiSSFoBcf5lx0nkTsxOUCVS8JHq27zk9o-CY0aZyFTSgBDb45LKZXf6SRezRe4"/>
+<button class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 text-white hover:text-red-400 transition-colors" onclick="event.stopPropagation();">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="px-2 pb-2">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-2xl font-headline font-bold text-primary tracking-tight">The Obsidian Villa</h3>
+<span class="text-xl font-headline font-extrabold text-primary">$4,250,000</span>
+</div>
+<p class="text-on-surface-variant text-sm mb-6 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+                        Zurich, Switzerland
+                    </p>
+<div class="flex items-center gap-6 border-t border-white/10 pt-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="bed">bed</span>
+                            4 Beds
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="bathtub">bathtub</span>
+                            3 Baths
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="straighten">straighten</span>
+                            3,400 sqft
+                        </div>
+</div>
+</div>
+</a>
+<!-- Property Card 2 -->
+<a class="group relative block bg-white/15 backdrop-blur-2xl squircle-32 border border-white/30 shadow-[0_40px_40px_-15px_rgba(81,95,120,0.06)] p-4 transition-all duration-300 hover:translate-y-[-8px]" href="#" onclick="event.preventDefault();">
+<div class="relative overflow-hidden squircle-24 aspect-[4/3] mb-6">
+<img alt="Lustre Property" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" data-alt="contemporary desert residence with smooth white walls and infinity edge pool against a twilight sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKsPaAFOwQORgzvCyHV9Xe90SdT93uKDc3TUNd3sD7z4tBJxIuIXCKNuOYxRD100NLv5xW1dxsLe5CGjz9GvVxdM7LOPqNWVQ3kOTwWPEOnAd3xat3cH5b2-5hG7sWECmRA013Mc89WPPghxYVSKwHBGC34nEs3Dd_k3XHy1DBawedAZu0xgmB0gc9cmP3b0fwliWzp2cMmA3lpAbWUC39I0oKAxlafypgZBwfEnJN0AqPyTUuQG_I5j1e2DUQqsPdpn2c5CyJVFY"/>
+<button class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 text-white hover:text-red-400 transition-colors" onclick="event.stopPropagation();">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="px-2 pb-2">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-2xl font-headline font-bold text-primary tracking-tight">Cloud Sanctuary</h3>
+<span class="text-xl font-headline font-extrabold text-primary">$2,800,000</span>
+</div>
+<p class="text-on-surface-variant text-sm mb-6 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+                        Malibu, California
+                    </p>
+<div class="flex items-center gap-6 border-t border-white/10 pt-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="bed">bed</span>
+                            3 Beds
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="bathtub">bathtub</span>
+                            2 Baths
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="straighten">straighten</span>
+                            2,150 sqft
+                        </div>
+</div>
+</div>
+</a>
+<!-- Property Card 3 -->
+<a class="group relative block bg-white/15 backdrop-blur-2xl squircle-32 border border-white/30 shadow-[0_40px_40px_-15px_rgba(81,95,120,0.06)] p-4 transition-all duration-300 hover:translate-y-[-8px]" href="#" onclick="event.preventDefault();">
+<div class="relative overflow-hidden squircle-24 aspect-[4/3] mb-6">
+<img alt="Lustre Property" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" data-alt="mediterranean style coastal estate with terracotta roof and white stucco overlooking turquoise ocean waters" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPFaAz9XK-mg-tXvkfJJdcUU0ioHwx6v_F2tAHNiFEtNE6M3VmSKZpswxQcx92YcXLsa40GHh504Bvb0vUZHWFWOfxWMWpx2K_QFXnJ0qyjgGUFANwaNNKuSeWIgYl1pgjpr05HiHmxCZbLHAZdffdtEyXh6AH6FEckbdBXZqE2UM2zKroVg4Ex94Jdw033GuFU52YJP3HAyAKGyQT_oiFSuukA0XF28g8cyQOowlK5oru80reLpZLXyfQQKLhhF1WHYcZ759GbBo"/>
+<button class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 text-white hover:text-red-400 transition-colors" onclick="event.stopPropagation();">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="px-2 pb-2">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-2xl font-headline font-bold text-primary tracking-tight">Pearl Residence</h3>
+<span class="text-xl font-headline font-extrabold text-primary">$6,100,000</span>
+</div>
+<p class="text-on-surface-variant text-sm mb-6 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+                        Santorini, Greece
+                    </p>
+<div class="flex items-center gap-6 border-t border-white/10 pt-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="bed">bed</span>
+                            5 Beds
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="bathtub">bathtub</span>
+                            5 Baths
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="straighten">straighten</span>
+                            5,800 sqft
+                        </div>
+</div>
+</div>
+</a>
+<!-- Property Card 4 -->
+<a class="group relative block bg-white/15 backdrop-blur-2xl squircle-32 border border-white/30 shadow-[0_40px_40px_-15px_rgba(81,95,120,0.06)] p-4 transition-all duration-300 hover:translate-y-[-8px]" href="#" onclick="event.preventDefault();">
+<div class="relative overflow-hidden squircle-24 aspect-[4/3] mb-6">
+<img alt="Lustre Property" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" data-alt="architectural concrete home nested in pine forest with large glass facade and warm interior glow at evening" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe8GvjM2yK9nxBxzwBs0yCdsrWr5jHOOCTZGTPNoFA4DOIQlrVNsYjWcjPBNCorBCKk7hzJyRz2JmaPS1_08vLasjAGGiMUMUz2CAuvR6AgBwHrY54CBjISSbMsAZJ4n8cCI6ClAMVP6s8RuJAs-IqyMmrCbi3_BGk7fkuf42auXSky7tbJn_O4FQiQUXoJT-Y78l5i1LbTIXyKnNRNwVLI4ohlizUhle4IG_eHtmKnmUz_06yiX4O2LHWqK5gng0R3XVil8uIcVg"/>
+<button class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 text-white hover:text-red-400 transition-colors" onclick="event.stopPropagation();">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="px-2 pb-2">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-2xl font-headline font-bold text-primary tracking-tight">The Pine Haven</h3>
+<span class="text-xl font-headline font-extrabold text-primary">$1,950,000</span>
+</div>
+<p class="text-on-surface-variant text-sm mb-6 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+                        Aspen, Colorado
+                    </p>
+<div class="flex items-center gap-6 border-t border-white/10 pt-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="bed">bed</span>
+                            3 Beds
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="bathtub">bathtub</span>
+                            2 Baths
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="straighten">straighten</span>
+                            2,400 sqft
+                        </div>
+</div>
+</div>
+</a>
+<!-- Property Card 5 -->
+<a class="group relative block bg-white/15 backdrop-blur-2xl squircle-32 border border-white/30 shadow-[0_40px_40px_-15px_rgba(81,95,120,0.06)] p-4 transition-all duration-300 hover:translate-y-[-8px]" href="#" onclick="event.preventDefault();">
+<div class="relative overflow-hidden squircle-24 aspect-[4/3] mb-6">
+<img alt="Lustre Property" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" data-alt="sleek black and white modern townhouse in urban setting with rooftop garden and minimalist landscaping" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnV98eUn-Rfq6-coK8Tgx9fE3QDvUa1kSyCV4z2STMUPIeGPOHQOByIuJB8HWTbBGorRHs0YFUyV0kUAyTOOV1K97Q3pdtEwoOaYQq6BITCNhLxpU3GONVIsSvi_7tvyq36xrGKjNy9htlpRHOU66kbXerbi18G5ff1xcnxGPzd0j_5UL1qM5D83bSJBbJqNdRBYNaqSHgHr59w8oJNJeUQYHiNJ3bg4HEGCJV_mcGr7yfpK4FcEWZ00FD-VU4cB1cSPUqqX7QUhQ"/>
+<button class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 text-white hover:text-red-400 transition-colors" onclick="event.stopPropagation();">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="px-2 pb-2">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-2xl font-headline font-bold text-primary tracking-tight">Urban Monolith</h3>
+<span class="text-xl font-headline font-extrabold text-primary">$3,400,000</span>
+</div>
+<p class="text-on-surface-variant text-sm mb-6 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+                        London, UK
+                    </p>
+<div class="flex items-center gap-6 border-t border-white/10 pt-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="bed">bed</span>
+                            4 Beds
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="bathtub">bathtub</span>
+                            4 Baths
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="straighten">straighten</span>
+                            3,100 sqft
+                        </div>
+</div>
+</div>
+</a>
+<!-- Property Card 6 -->
+<a class="group relative block bg-white/15 backdrop-blur-2xl squircle-32 border border-white/30 shadow-[0_40px_40px_-15px_rgba(81,95,120,0.06)] p-4 transition-all duration-300 hover:translate-y-[-8px]" href="#" onclick="event.preventDefault();">
+<div class="relative overflow-hidden squircle-24 aspect-[4/3] mb-6">
+<img alt="Lustre Property" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" data-alt="expansive open concept living room with high ceilings and huge glass walls revealing a lush tropical garden" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvB1VNgdqh3LVZzpIw0woEjlBytUDLZU4VeeIRBEWOW0yRHYV40SZ1MBWRZ4-ZXCTV5IW1EVVbWGP77Wq__b6_wnSdxM0CfXcaZO4c7ZxOe0hM5udpCO0pJCDs4An2DMzpHcoHzbP9YQ1ByZrhN3IIPdC9Rw9pnMP08HBYCQZVmP8HZ3IHD3PEw-4ZFuncuA_eOmBnmZRbYZifpgl6oVnB8pgeeoy3dkrFI2QtTtI9KWgnHF_ZfOt4AQbttzlMiu1H3UnVpvrlUyA"/>
+<button class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 text-white hover:text-red-400 transition-colors" onclick="event.stopPropagation();">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="px-2 pb-2">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-2xl font-headline font-bold text-primary tracking-tight">Atrium Estate</h3>
+<span class="text-xl font-headline font-extrabold text-primary">$5,750,000</span>
+</div>
+<p class="text-on-surface-variant text-sm mb-6 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+                        Bali, Indonesia
+                    </p>
+<div class="flex items-center gap-6 border-t border-white/10 pt-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="bed">bed</span>
+                            6 Beds
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="bathtub">bathtub</span>
+                            6 Baths
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="straighten">straighten</span>
+                            7,200 sqft
+                        </div>
+</div>
+</div>
+</a>
+</section>
+</main>
+<footer class="fixed bottom-0 w-full z-50 flex justify-around items-center px-8 pb-8 pt-4 bg-white/15 backdrop-blur-2xl squircle-32 md:hidden border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center text-indigo-500 scale-110 active-nav" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[10px] font-headline uppercase tracking-widest mt-1 font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 opacity-70 hover:opacity-100 transition-all scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="text-[10px] font-headline uppercase tracking-widest mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 opacity-70 hover:opacity-100 transition-all scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="text-[10px] font-headline uppercase tracking-widest mt-1">Curator</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 opacity-70 hover:opacity-100 transition-all scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-[10px] font-headline uppercase tracking-widest mt-1">Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 opacity-70 hover:opacity-100 transition-all scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-headline uppercase tracking-widest mt-1">Account</span>
+</a>
+</footer>
+</body></html>

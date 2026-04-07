@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Booking Success - Ethereal Estate</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#000000",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#f8f9fa",
+                    "background": "#f8f9fa",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f8f9fa",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#333b9c",
+                    "on-secondary-container": "#21298c",
+                    "tertiary-container": "#171c23",
+                    "secondary-fixed": "#e0e0ff",
+                    "primary-fixed-dim": "#b9c7e4",
+                    "tertiary-fixed": "#dee2ed",
+                    "primary-container": "#0d1c32",
+                    "outline": "#75777e",
+                    "surface-variant": "#e1e3e4",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#191c1d",
+                    "inverse-primary": "#b9c7e4",
+                    "on-primary-fixed-variant": "#39475f",
+                    "on-secondary-fixed": "#00046a",
+                    "on-primary-fixed": "#0d1c32",
+                    "on-tertiary-container": "#7f848e",
+                    "secondary-container": "#8f98fe",
+                    "on-tertiary-fixed-variant": "#424750",
+                    "on-tertiary-fixed": "#171c23",
+                    "surface-container-highest": "#e1e3e4",
+                    "secondary": "#4c54b6",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c5c6cd",
+                    "on-background": "#191c1d",
+                    "surface-container-high": "#e7e8e9",
+                    "tertiary": "#000000",
+                    "primary-fixed": "#d6e3ff",
+                    "on-surface-variant": "#44474d",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#c2c6d1",
+                    "on-primary-container": "#76849f",
+                    "surface-tint": "#515f78",
+                    "surface-container": "#edeeef",
+                    "inverse-on-surface": "#f0f1f2",
+                    "surface-dim": "#d9dadb",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f3f4f5",
+                    "secondary-fixed-dim": "#bec2ff",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#2e3132"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .mesh-gradient {
+            background-color: #f8f9fa;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(142, 151, 253, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(76, 84, 182, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(142, 151, 253, 0.15) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(76, 84, 182, 0.1) 0px, transparent 50%);
+        }
+        .squircle {
+            border-radius: 32pt;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body bg-background text-on-background min-h-screen mesh-gradient flex flex-col items-center justify-center p-6 overflow-hidden">
+<!-- Success Content Area -->
+<main class="w-full max-w-lg flex flex-col items-center gap-12 relative">
+<!-- Animated Aura Decoration -->
+<div class="absolute -top-24 w-64 h-64 bg-secondary/10 blur-[100px] rounded-full"></div>
+<!-- Central Success Capsule -->
+<div class="relative group">
+<div class="w-32 h-32 md:w-40 md:h-40 bg-surface-container-lowest/15 backdrop-blur-3xl squircle flex items-center justify-center shadow-[0_40px_40px_-15px_rgba(81,95,120,0.08)] border border-white/20">
+<span class="material-symbols-outlined text-secondary text-6xl md:text-7xl" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<!-- Decorative Accent -->
+<div class="absolute -bottom-2 -right-2 w-10 h-10 bg-secondary rounded-full flex items-center justify-center shadow-lg border-4 border-white">
+<span class="material-symbols-outlined text-white text-sm" data-icon="celebration">celebration</span>
+</div>
+</div>
+<!-- Text Header -->
+<div class="text-center space-y-3">
+<h1 class="font-headline text-4xl md:text-5xl font-extrabold tracking-tight text-primary">Booking Confirmed</h1>
+<p class="text-on-surface-variant text-lg font-medium">Your visit has been curated and scheduled.</p>
+</div>
+<!-- Details Card: Frosted Glass Panel -->
+<div class="w-full bg-white/10 backdrop-blur-2xl squircle p-8 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.04)] border border-white/30 flex flex-col gap-6">
+<!-- Property Preview Section -->
+<div class="flex items-center gap-4">
+<div class="w-20 h-20 rounded-2xl overflow-hidden shrink-0">
+<img alt="Property preview" class="w-full h-full object-cover" data-alt="Modern minimalist luxury villa with large glass windows and reflecting pool at dusk with warm interior lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGhU0du7hN89ObyFRE4g4OqQGsfWVqPyrl_tL7VdJOdJko3xcYU5JtiSMoGSW5Joc7tVCNdaMWVDCfe_iiNjj0cqDyf7yXw3mz_WxQVKGqDyUVbvpHV2fnDkfbLrahsILvb7XZfblpYggwm7Q_bwhaUg_T0DXTrxjgC-U2v_pM213FrmMpoaOhIIhSpOhvttnQQZyNUN3TlYe7sp7wEvcxQtp5mez7SWWUwPUc13rkaBezGLIlPW4YYERXX3IcGh2BDtHpFOG9Uuk"/>
+</div>
+<div class="flex flex-col">
+<span class="text-secondary font-headline font-bold text-xs uppercase tracking-widest">Selected Estate</span>
+<h2 class="text-primary font-headline font-bold text-xl leading-tight">Azure Horizon Villa</h2>
+<p class="text-on-surface-variant text-sm">Malibu, California</p>
+</div>
+</div>
+<!-- Divider (Tonal instead of line) -->
+<div class="h-px w-full bg-outline-variant/20"></div>
+<!-- Booking Specifics Grid -->
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-1">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Date</span>
+</div>
+<p class="text-primary font-semibold">October 24, 2023</p>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Time</span>
+</div>
+<p class="text-primary font-semibold">10:30 AM PST</p>
+</div>
+<div class="space-y-1 col-span-2">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="person_pin">person_pin</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Assigned Agent</span>
+</div>
+<div class="flex items-center gap-3 mt-1">
+<div class="w-6 h-6 rounded-full bg-primary-container flex items-center justify-center text-[10px] text-white font-bold">JC</div>
+<p class="text-primary font-semibold">Julianna Chen • Senior Curator</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="w-full flex flex-col gap-4">
+<button class="w-full h-16 bg-primary text-on-primary font-headline font-bold rounded-2xl shadow-xl hover:scale-[0.98] transition-transform flex items-center justify-center gap-2">
+<span>Add to Calendar</span>
+<span class="material-symbols-outlined" data-icon="event">event</span>
+</button>
+<button class="w-full h-16 bg-white/15 backdrop-blur-xl text-secondary font-headline font-bold rounded-2xl border border-white/30 hover:bg-white/25 transition-all">
+                Back to Dashboard
+            </button>
+</div>
+<!-- Subtle Support Text -->
+<p class="text-on-tertiary-container text-xs font-medium opacity-60">A confirmation email has been sent to your registered address.</p>
+</main>
+<!-- Floating Background Decor -->
+<div class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none opacity-40">
+<div class="absolute top-[10%] left-[15%] w-72 h-72 bg-secondary/5 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[15%] right-[10%] w-96 h-96 bg-primary-container/5 blur-[150px] rounded-full"></div>
+</div>
+</body></html>

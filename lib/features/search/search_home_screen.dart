@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../shared/widgets/bottom_nav_bar.dart';
+import 'search_filter_screen.dart';
 
 class Property {
   final String title;
@@ -75,6 +76,15 @@ class _SearchHomeScreenState extends State<SearchHomeScreen> {
             .toList();
       }
     });
+  }
+
+  void _showFilterSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => const SearchFilterScreen(),
+    );
   }
 
   @override
@@ -259,13 +269,22 @@ class _SearchHomeScreenState extends State<SearchHomeScreen> {
                 hintText: 'Find your sanctuary...',
                 hintStyle: GoogleFonts.inter(color: Colors.black38, fontSize: 18),
                 prefixIcon: const Icon(Icons.search, color: Colors.black38, size: 28),
-                suffixIcon: _isSearching ? IconButton(
-                  icon: const Icon(Icons.close),
-                  onPressed: () {
-                    _searchController.clear();
-                    _filterProperties('');
-                  },
-                ) : null,
+                suffixIcon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (_isSearching) IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () {
+                        _searchController.clear();
+                        _filterProperties('');
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.tune, color: Colors.black38),
+                      onPressed: _showFilterSheet,
+                    ),
+                  ],
+                ),
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
               ),

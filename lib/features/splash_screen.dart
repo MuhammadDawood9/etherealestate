@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'onboarding_screen.dart';
+import 'search/search_home_screen.dart';
 import '../shared/widgets/glass_card.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,135 +18,94 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     // Navigate to Onboarding after a delay
-    Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const OnboardingScreen()),
-        );
-      }
+    Future.delayed(const Duration(seconds: 1), () {
+      if (!mounted) return;
+      final user = FirebaseAuth.instance.currentUser;
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => user != null ? const SearchHomeScreen() : const OnboardingScreen(),
+        ),
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final width = screenSize.width;
+    final height = screenSize.height;
+    
     return Scaffold(
       body: Stack(
         children: [
-          // Mesh Gradient Background
-          Container(
-            color: Colors.white,
-          ),
+          Container(color: Colors.white),
           _buildMeshGradient(),
-          
-          // Background Texture (Subtle Grain)
-          Opacity(
-            opacity: 0.05,
-            child: Image.network(
-              'https://lh3.googleusercontent.com/aida-public/AB6AXuBba0vQN25HlVtABULRm_pqfdo4q-74WYh4yS7BgPMk4OvhBQwW1IxL66zXia5ye_CYNXbQkLx_cbbcxL2KTJroFQduL99eSN6uXP_pYrDw7BktldC_E58RYckTNpWOsaQvqZKX-eT0Gp0zIj5guSxYK7nA9ooT-L_bsZLTkG3X4QvHBuUfKgcHsl64NYpAXrzlXD-XdR4xivcEiXMsLc3rIHOkWGrB2RbM60hLOwlnMRv82Ory66JsCyOsDmwHfj_zxkW98WVVoQc',
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: double.infinity,
-            ),
-          ),
 
-          // Center Identity
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Minimalist Logo with Glassmorphism
-                GlassCard(
-                  child: Padding(
-                    padding: const EdgeInsets.all(28.0),
-                    child: Icon(
-                      Icons.home_max_outlined,
-                      size: 80,
-                      color: Colors.black.withOpacity(0.8),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 40),
-                
-                // Brand Typography
-                Text(
-                  'Ethereal Estate',
-                  style: GoogleFonts.manrope(
-                    fontSize: 48,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black,
-                    letterSpacing: -2,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                
-                // Tagline
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 48),
-                  child: Text(
-                    'Curating celestial living spaces for the modern visionary.',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.inter(
-                      fontSize: 17,
-                      color: Colors.black.withOpacity(0.6),
-                      height: 1.5,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // Footer App Version
-          Positioned(
-            bottom: 60,
-            left: 0,
-            right: 0,
+          SafeArea(
             child: Center(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(40),
-                  border: Border.all(color: Colors.white.withOpacity(0.4)),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: 8,
-                      height: 8,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF4C54B6),
-                        shape: BoxShape.circle,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Spacer(flex: 2),
+                  GlassCard(
+                    child: Padding(
+                      padding: EdgeInsets.all(width * 0.06),
+                      child: Icon(
+                        Icons.home_max_outlined,
+                        size: width * 0.18,
+                        color: Colors.black.withValues(alpha: 0.8),
                       ),
                     ),
-                    const SizedBox(width: 12),
-                    Text(
-                      'V1.0.2',
-                      style: GoogleFonts.manrope(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
-                        letterSpacing: 1.5,
+                  ),
+                  SizedBox(height: height * 0.05),
+                  Text(
+                    'Ethereal Estate',
+                    style: GoogleFonts.manrope(
+                      fontSize: width * 0.1,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black,
+                      letterSpacing: -2,
+                    ),
+                  ),
+                  SizedBox(height: height * 0.015),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.1),
+                    child: Text(
+                      'Curating celestial living spaces for the modern visionary.',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.inter(
+                        fontSize: width * 0.04,
+                        color: Colors.black.withValues(alpha: 0.6),
+                        height: 1.5,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  const Spacer(flex: 3),
+                  Text(
+                    'V1.0.2',
+                    style: GoogleFonts.manrope(
+                      fontSize: width * 0.03,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                  SizedBox(height: height * 0.05),
+                ],
               ),
             ),
           ),
           
-          // Decorative Blur Elements
           Positioned(
             top: -100,
             left: -100,
-            child: _BlurCircle(color: const Color(0xFF4C54B6).withOpacity(0.05)),
+            child: _BlurCircle(color: const Color(0xFF4C54B6).withValues(alpha: 0.05)),
           ),
           Positioned(
             bottom: -100,
             right: -100,
-            child: _BlurCircle(color: const Color(0xFF515F78).withOpacity(0.08)),
+            child: _BlurCircle(color: const Color(0xFF515F78).withValues(alpha: 0.08)),
           ),
         ],
       ),
@@ -173,7 +135,7 @@ class _GradientSphere extends StatelessWidget {
       height: 500,
       decoration: BoxDecoration(
         gradient: RadialGradient(
-          colors: [color, color.withOpacity(0)],
+          colors: [color, color.withValues(alpha: 0)],
           radius: 0.8,
         ),
       ),

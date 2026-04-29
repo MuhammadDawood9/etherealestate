@@ -115,7 +115,7 @@ class PropertyFeedScreen extends StatelessWidget {
                   context: context,
                   isScrollControlled: true,
                   backgroundColor: Colors.transparent,
-                  builder: (context) => const SearchFilterScreen(),
+                  builder: (context) => SearchFilterScreen(),
                 );
               },
               icon: const Icon(Icons.tune, size: 18, color: Color(0xFF4C54B6)),

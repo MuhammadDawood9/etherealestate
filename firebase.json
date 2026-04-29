@@ -1,0 +1,25 @@
+{
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "etherealestate-60c03",
+          "configurations": {
+            "android": "1:73294790038:android:751f14edf77314afe331b7",
+            "ios": "1:73294790038:ios:ce3d04992de6567fe331b7"
+          }
+        }
+      },
+      "android": {
+        "default": {
+          "projectId": "etherealestate-60c03",
+          "appId": "1:73294790038:android:751f14edf77314afe331b7",
+          "fileOutput": "android/app/google-services.json"
+        }
+      }
+    }
+  }
+}

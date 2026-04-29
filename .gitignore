@@ -43,3 +43,22 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Environment secrets
+.env
+
+# Firebase/Google services (contains API keys)
+google-services.json
+
+# Android build artifacts
+android/build/
+
+# Python files (not part of Flutter project)
+main.py
+requirements.txt
+
+# Claude-specific files
+.claude/
+
+# Data files
+data/

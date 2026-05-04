@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:local_auth/local_auth.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final LocalAuthentication _localAuth = LocalAuthentication();
 
   // Get current user
   User? get currentUser => _auth.currentUser;
@@ -80,6 +82,39 @@ class AuthService {
     await _auth.signOut();
     if (!kIsWeb) {
       await _googleSignIn.signOut();
+    }
+  }
+
+  // Biometric authentication
+  Future<bool> isBiometricAvailable() async {
+    try {
+      return await _localAuth.canCheckBiometrics &&
+          await _localAuth.isDeviceSupported();
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<List<BiometricType>> getAvailableBiometrics() async {
+    try {
+      return await _localAuth.getAvailableBiometrics();
+    } catch (_) {
+      return [];
+    }
+  }
+
+  Future<bool> authenticateWithBiometrics() async {
+    try {
+      return await _localAuth.authenticate(
+        localizedReason: 'Verify your identity to access Ethereal Estate',
+        options: const AuthenticationOptions(
+          biometricOnly: true,
+          stickyAuth: true,
+        ),
+      );
+    } catch (e) {
+      if (kDebugMode) debugPrint('Biometric Error: $e');
+      return false;
     }
   }
 

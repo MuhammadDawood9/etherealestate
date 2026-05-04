@@ -1,31 +1,38 @@
 # Ethereal Estate — Technical Documentation
 
-**Version 2.0 — Spring 2026**
+**Version 3.0 — Spring 2026**
 
 ---
 
 ## Chapter 1 — Introduction
 
 ### 1.1 Background
-The global real estate market continues its digital transformation. This version integrates a **Python FastAPI backend** for real property data from Lahore, Pakistan, replacing static seed data.
+The global real estate market continues its digital transformation. Version 2.0 integrated a **Python FastAPI backend** for real property data from Lahore, Pakistan. Version 3.0 focuses on UI/UX elevation, authentication improvements, and data quality.
 
-### 1.2 New Features Added
+### 1.2 Version 3.0 — New Features
 
 | Feature | Implementation |
 |---------|----------------|
-| Python FastAPI Backend | `main.py` with `/properties`, `/properties/search` endpoints |
-| User Registration | Dedicated `signup_screen.dart` with form validation |
-| Profile Management | `UserProfile` provider syncs name/location to Firebase |
-| Settings Persistence | In-memory fallback for web (SQLite unavailable) |
-| Lahore Data Focus | All properties, locations, mortgage in PKR |
-| Interactive Map | Geoapify API with 5 Lahore pins |
-| Agent Profile | Loads from API via `featuredPropertiesProvider` |
+| Cinematic Agent Profile Hero | `SliverAppBar` + `FlexibleSpaceBar` parallax, indigo gradient, DiceBear illustration avatar |
+| Animated Stat Counters | `AnimationController` counts 0→124/9+/4.9 on screen load |
+| Live Status Chip | Pulsing green dot animation via `AnimationController.repeat` |
+| Testimonials Ribbon | Horizontal `ListView` with 4 client cards, accent-rotated avatars |
+| Google Sign-In (wired) | `AuthService.signInWithGoogle()` connected to button (was empty) |
+| Biometric Authentication | `local_auth` package — Face ID / Fingerprint on login screen |
+| Email Auth + Forgot Password | Login screen converted to `StatefulWidget` with real controllers |
+| Property Feed from Repository | `feedPropertiesProvider` replaces 3-item hardcoded list (now 10) |
+| Unsplash Property Images | All 10 Lahore fallback properties use curated luxury building photos |
+| Map — All Properties Pinned | 10 markers with real Lahore coordinates, each linked to property data |
+| Agent Renamed | Agent name updated to "Ashfaq" throughout |
 
-### 1.3 Goals Achieved (Updated)
+### 1.3 Goals Achieved (Cumulative)
 - ✅ Python FastAPI backend integration
-- ✅ Web-safe platform detection (no Platform.isAndroid on web)
-- ✅ API URL auto-detection (127.0.0.1:8000 for web, 10.0.2.2 for emulator)
+- ✅ Web-safe platform detection
+- ✅ API URL auto-detection (127.0.0.1:8000 for web, emulator IP for Android)
 - ✅ 34 unit tests passing
+- ✅ Google Sign-In + Biometric (Face ID / Fingerprint) authentication
+- ✅ Cinematic parallax agent profile with illustration avatar
+- ✅ All 10 properties visible on map with accurate Lahore coordinates
 
 ---
 
@@ -180,53 +187,85 @@ class UserProfileNotifier extends StateNotifier<UserProfile> {
 }
 ```
 
-### 3.4 Key Code — Interactive Map (Geoapify)
+### 3.4 Key Code — Interactive Map (All Properties Pinned)
+
+All 10 fallback properties now have accurate Lahore coordinates stored in a `const` lookup map. Markers are generated from the loaded property list; tapping a pin selects that property and updates the preview card.
 
 ```dart
 // lib/features/search/interactive_map_screen.dart
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+const _propertyCoords = <String, LatLng>{
+  'lhr-001': LatLng(31.4439, 74.4295), // DHA Phase 6
+  'lhr-002': LatLng(31.5067, 74.3333), // Gulberg III
+  'lhr-003': LatLng(31.3553, 74.1934), // Bahria Town
+  'lhr-004': LatLng(31.4858, 74.3266), // Model Town
+  'lhr-005': LatLng(31.4697, 74.2725), // Johar Town
+  'lhr-006': LatLng(31.5050, 74.3520), // Canal Road
+  'lhr-007': LatLng(31.3620, 74.1950), // Askari 11
+  'lhr-008': LatLng(31.5030, 74.3420), // Garden Town
+  'lhr-009': LatLng(31.4588, 74.2810), // Wapda Town
+  'lhr-010': LatLng(31.4000, 74.3900), // Valencia Town
+};
 
-class _InteractiveMapScreenState extends ConsumerState {
-  static const String _geoapifyKey = 'a608c97c6f0b41418ae0a7dcfb964c78';
-  static const String _tileUrl = 'https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png';
-
-  static final LatLng _lahoreCenter = const LatLng(31.5497, 74.3436);
-
-  final List<_MapPinData> _pins = [
-    _MapPinData(position: const LatLng(33.5651, 73.0169), title: 'DHA Defence'),
-    _MapPinData(position: const LatLng(33.5090, 73.3310), title: 'Bahria Town'),
-    _MapPinData(position: const LatLng(31.4697, 74.2725), title: 'Gulberg'),
-    _MapPinData(position: const LatLng(31.4320, 74.3910), title: 'Johar Town'),
-    _MapPinData(position: const LatLng(31.4504, 74.3100), title: 'Cantt'),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    final propertiesAsync = ref.watch(featuredPropertiesProvider);
-    
-    return FlutterMap(
-      options: MapOptions(initialCenter: _lahoreCenter, initialZoom: 10.5),
-      children: [
-        TileLayer(
-          urlTemplate: '$_tileUrl?apiKey=$_geoapifyKey',
-          userAgentPackageName: 'com.etherealestate.app',
+// Markers generated dynamically from loaded properties:
+MarkerLayer(
+  markers: mappableProps.map((property) {
+    final isSelected = _selectedProperty?.id == property.id;
+    return Marker(
+      point: _propertyCoords[property.id]!,
+      child: GestureDetector(
+        onTap: () => _onMarkerTapped(property),
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 200),
+          decoration: BoxDecoration(
+            color: isSelected ? Color(0xFF4C54B6) : Colors.white,
+            shape: BoxShape.circle,
+            border: Border.all(color: Color(0xFF4C54B6), width: isSelected ? 3 : 2),
+          ),
+          child: Icon(Icons.home_rounded, color: isSelected ? Colors.white : Color(0xFF4C54B6)),
         ),
-        MarkerLayer(
-          markers: _pins.asMap().entries.map((entry) {
-            return Marker(
-              point: entry.value.position,
-              child: Icon(Icons.location_pin, color: Color(0xFF4C54B6)),
-            );
-          }).toList(),
-        ),
-      ],
+      ),
     );
-  }
+  }).toList(),
+),
+```
+
+### 3.5 Key Code — Biometric Authentication
+
+`local_auth ^2.3.0` is added to `pubspec.yaml`. `MainActivity.kt` extends `FlutterFragmentActivity` (required). Android manifest includes `USE_BIOMETRIC` + `USE_FINGERPRINT` permissions. iOS `Info.plist` includes `NSFaceIDUsageDescription`.
+
+```dart
+// lib/core/services/auth_service.dart
+Future<bool> isBiometricAvailable() async {
+  return await _localAuth.canCheckBiometrics &&
+      await _localAuth.isDeviceSupported();
+}
+
+Future<bool> authenticateWithBiometrics() async {
+  return await _localAuth.authenticate(
+    localizedReason: 'Verify your identity to access Ethereal Estate',
+    options: const AuthenticationOptions(biometricOnly: true, stickyAuth: true),
+  );
 }
 ```
 
-### 3.5 Key Code — LocalDatabaseService (Web Fallback)
+Login screen detects Face ID vs Fingerprint at `initState` and shows the correct button and icon. On success it checks `FirebaseAuth.currentUser` — if a session exists the user is taken to the home screen; otherwise prompted to sign in once first.
+
+### 3.6 Key Code — Agent Profile (Parallax + Illustration)
+
+Agent profile uses `ConsumerStatefulWidget` with two `AnimationController`s:
+
+| Controller | Purpose |
+|------------|---------|
+| `_statsController` | Counts stats 0→target over 1.8 s with `easeOutCubic` |
+| `_pulseController` | Repeating scale 0.75×↔1.25× for the live status dot |
+
+The hero is a `SliverAppBar` with `expandedHeight: 440`. The `FlexibleSpaceBar` background contains:
+- Deep indigo→purple gradient (`#0D1138` → `#3D44A8` → `#6B4FC8`)
+- Three radial glow blobs for depth
+- DiceBear `avataaars` illustration (seed: `Ashfaq`) in a `172px` clipped circle with glow shadow
+- Name block + live status chip at bottom
+
+### 3.7 Key Code — LocalDatabaseService (Web Fallback)
 
 ```dart
 // lib/core/services/local_database_service.dart
@@ -345,13 +384,20 @@ flutter build web
 | File | Purpose |
 |------|---------|
 | `lib/main.dart` | App entry, routes, Firebase init |
-| `lib/core/repositories/property_repository.dart` | API calls with kIsWeb toggle |
-| `lib/core/providers/app_providers.dart` | UserProfile, feedProperties, featuredProperties |
+| `lib/core/repositories/property_repository.dart` | API calls + 10-property Lahore fallback with Unsplash images |
+| `lib/core/services/auth_service.dart` | Firebase Auth + Google Sign-In + biometric (`local_auth`) |
+| `lib/core/providers/app_providers.dart` | UserProfile, feedProperties, featuredProperties providers |
+| `lib/features/auth/login_screen.dart` | StatefulWidget — email/Google/biometric auth, forgot password |
 | `lib/features/auth/signup_screen.dart` | Registration with name input |
-| `lib/features/search/interactive_map_screen.dart` | Geoapify map with Lahore pins |
+| `lib/features/property/property_feed_screen.dart` | ConsumerWidget — all 10 properties from repository |
+| `lib/features/search/interactive_map_screen.dart` | Geoapify map, 10 pins from property data with real Lahore coords |
+| `lib/features/profile/agent_profile_screen.dart` | Parallax hero, illustration avatar (Ashfaq), animated stats, testimonials |
 | `lib/features/profile/account_settings_screen.dart` | Profile editing, Lahore default location |
 | `main.py` | FastAPI backend with CORS |
+| `android/app/src/main/AndroidManifest.xml` | Biometric permissions (`USE_BIOMETRIC`, `USE_FINGERPRINT`) |
+| `android/app/src/main/kotlin/.../MainActivity.kt` | `FlutterFragmentActivity` (required for local_auth) |
+| `ios/Runner/Info.plist` | `NSFaceIDUsageDescription` for Face ID |
 
 ---
 
-*Documentation Updated: Spring 2026*
+*Documentation Updated: Spring 2026 — Version 3.0*

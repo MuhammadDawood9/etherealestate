@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../core/constants/app_routes.dart';
 import '../../core/services/auth_service.dart';
-import '../../core/utils/app_snack_bar.dart';
 import '../../shared/widgets/gradient_sphere.dart';
+import 'preference_wizard_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -53,10 +52,8 @@ class _SignupScreenState extends State<SignupScreen> {
       );
       if (mounted) {
         await _authService.updateUserProfile(name: _nameController.text.trim());
-        Navigator.of(context).pushReplacementNamed(AppRoutes.search);
-        AppSnackBar.show(
-          context,
-          'Welcome${result.isNewAccount ? ' to Ethereal Estate' : ''}!',
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const PreferenceWizardScreen()),
         );
       }
     } catch (e) {

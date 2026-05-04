@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../shared/widgets/glass_card.dart';
 import '../search/search_home_screen.dart';
+import 'signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -169,7 +170,11 @@ class LoginScreen extends StatelessWidget {
                         style: GoogleFonts.inter(color: Colors.black54, fontSize: 14),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (_) => const SignupScreen()),
+                          );
+                        },
                         child: Text(
                           'Create Account',
                           style: GoogleFonts.inter(

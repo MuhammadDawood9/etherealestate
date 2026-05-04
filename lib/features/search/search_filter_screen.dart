@@ -23,8 +23,8 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> {
     super.initState();
     // 1. FIX: RangeValues requires non-null doubles. We provide defaults here.
     _priceRange = RangeValues(
-        widget.initial.minPrice ?? 500000.0,
-        widget.initial.maxPrice ?? 10000000.0
+        widget.initial.minPrice ?? 5000000.0,
+        widget.initial.maxPrice ?? 50000000.0
     );
 
     // 2. FIX: Align UI local state with Model fields
@@ -42,10 +42,15 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> {
   }
 
   void _reset() => setState(() {
-    _priceRange = const RangeValues(500000, 10000000);
+    _priceRange = const RangeValues(5000000, 50000000);
     _selectedType = 'All';
     _selectedBedrooms = 'Any';
   });
+
+  String _pkrLabel(double v) {
+    if (v >= 10000000) return '${(v / 10000000).toStringAsFixed(1)} Cr';
+    return '${(v / 100000).toStringAsFixed(0)} L';
+  }
 
   void _apply() {
     // 3. FIX: Convert UI state back to Model types before popping
@@ -114,14 +119,14 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> {
                     const SizedBox(height: 40),
                     _buildLabel('PROPERTY TYPE'),
                     const SizedBox(height: 16),
-                    _buildSegmentedControl(['All', 'Villa', 'Coastal', 'Penthouse', 'Off-Grid']),
+                    _buildSegmentedControl(['All', 'House', 'Flat', 'Upper Portion', 'Lower Portion', 'Farm House']),
                     const SizedBox(height: 40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         _buildLabel('PRICE RANGE'),
                         Text(
-                          'Rs. ${(_priceRange.start / 100000).toStringAsFixed(1)}L — Rs. ${(_priceRange.end / 1000000).toStringAsFixed(1)}M',
+                          'Rs. ${_pkrLabel(_priceRange.start)} — Rs. ${_pkrLabel(_priceRange.end)}',
                           style: GoogleFonts.manrope(
                               fontWeight: FontWeight.bold,
                               color: const Color(0xFF4C54B6),
@@ -131,8 +136,8 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> {
                     ),
                     RangeSlider(
                       values: _priceRange,
-                      min: 500000,
-                      max: 15000000,
+                      min: 5000000,
+                      max: 200000000,
                       activeColor: const Color(0xFF4C54B6),
                       inactiveColor: Colors.black.withValues(alpha: 0.05),
                       onChanged: (v) => setState(() => _priceRange = v),
@@ -140,12 +145,12 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('500K',
+                        Text('50 L',
                             style: GoogleFonts.inter(
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black26)),
-                        Text('15M+',
+                        Text('20 Cr+',
                             style: GoogleFonts.inter(
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,

@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,7 +39,7 @@ class AccountSettingsScreen extends ConsumerWidget {
                     [
                       _SettingsItem(icon: Icons.person_outline,          title: 'Personal Information', onTap: (ctx) => _showPersonalInfoSheet(ctx)),
                       _SettingsItem(icon: Icons.search,                   title: 'Saved Searches',       onTap: (ctx) => Navigator.pushReplacementNamed(ctx, '/search')),
-                      _SettingsItem(icon: Icons.account_balance_outlined, title: 'Mortgage Status',      badge: 'ACTIVE', onTap: (ctx) => _showMortgageSheet(ctx)),
+                      _SettingsItem(icon: Icons.calculate_outlined,       title: 'EMI Calculator',       badge: 'PKR',    onTap: (ctx) => _showEmiCalculatorSheet(ctx)),
                     ],
                     context,
                   ),
@@ -328,7 +329,7 @@ class AccountSettingsScreen extends ConsumerWidget {
   // ── Sheet Launchers ──────────────────────────────────────────────────────────
 
   void _showPersonalInfoSheet(BuildContext context) => showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (_) => const _PersonalInfoSheet());
-  void _showMortgageSheet(BuildContext context)      => showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (_) => const _MortgageSheet());
+  void _showEmiCalculatorSheet(BuildContext context)  => showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (_) => const _EmiCalculatorSheet());
   void _showPreferencesSheet(BuildContext context)   => showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (_) => const _PreferencesSheet());
   void _showNotificationsSheet(BuildContext context) => showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (_) => const _NotificationsSheet());
   void _showPrivacySheet(BuildContext context)       => showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (_) => const _PrivacySheet());
@@ -426,59 +427,146 @@ class _PersonalInfoSheetState extends ConsumerState<_PersonalInfoSheet> {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// Mortgage Status Sheet (Pakistan Region)
+// EMI Calculator Sheet (Pakistan Region)
 // ═══════════════════════════════════════════════════════════════════════════════
 
-class _MortgageSheet extends StatelessWidget {
-  const _MortgageSheet();
+class _EmiCalculatorSheet extends StatefulWidget {
+  const _EmiCalculatorSheet();
+  @override
+  State<_EmiCalculatorSheet> createState() => _EmiCalculatorSheetState();
+}
+
+class _EmiCalculatorSheetState extends State<_EmiCalculatorSheet> {
+  double _propertyValue = 10000000;  // 1 Cr
+  double _downPaymentPct = 20;
+  double _annualRate = 22.5;
+  int _termYears = 10;
+
+  double get _loanAmount => _propertyValue * (1 - _downPaymentPct / 100);
+  double get _monthlyRate => _annualRate / 100 / 12;
+  int get _months => _termYears * 12;
+
+  double get _emi {
+    final r = _monthlyRate;
+    final n = _months;
+    if (r == 0) return _loanAmount / n;
+    final factor = math.pow(1 + r, n);
+    return _loanAmount * r * factor / (factor - 1);
+  }
+
+  double get _totalPayment => _emi * _months;
+  double get _totalInterest => _totalPayment - _loanAmount;
+
+  String _fmt(double v) {
+    if (v >= 10000000) return 'PKR ${(v / 10000000).toStringAsFixed(2)} Cr';
+    if (v >= 100000)   return 'PKR ${(v / 100000).toStringAsFixed(1)} L';
+    return 'PKR ${v.toStringAsFixed(0)}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return _SheetScaffold(
-      title: 'Mortgage Status',
-      child: Column(children: [
+      title: 'EMI Calculator',
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        // ── Property Value ──────────────────────────────────────────
+        _SliderRow(
+          label: 'PROPERTY VALUE',
+          valueText: _fmt(_propertyValue),
+          value: _propertyValue,
+          min: 5000000,
+          max: 100000000,
+          onChanged: (v) => setState(() => _propertyValue = v),
+        ),
+        const SizedBox(height: 20),
+        // ── Down Payment ────────────────────────────────────────────
+        _SliderRow(
+          label: 'DOWN PAYMENT',
+          valueText: '${_downPaymentPct.toStringAsFixed(0)}%  (${_fmt(_propertyValue * _downPaymentPct / 100)})',
+          value: _downPaymentPct,
+          min: 10,
+          max: 50,
+          onChanged: (v) => setState(() => _downPaymentPct = v),
+        ),
+        const SizedBox(height: 20),
+        // ── Interest Rate ───────────────────────────────────────────
+        _SliderRow(
+          label: 'INTEREST RATE (KIBOR-linked)',
+          valueText: '${_annualRate.toStringAsFixed(1)}% p.a.',
+          value: _annualRate,
+          min: 15,
+          max: 30,
+          onChanged: (v) => setState(() => _annualRate = v),
+        ),
+        const SizedBox(height: 20),
+        // ── Loan Term ───────────────────────────────────────────────
+        _Label('LOAN TERM'),
+        const SizedBox(height: 12),
+        _Segment(
+          options: ['5 yr', '10 yr', '15 yr', '20 yr'],
+          selected: '$_termYears yr',
+          onChanged: (v) => setState(() => _termYears = int.parse(v.split(' ')[0])),
+        ),
+        const SizedBox(height: 28),
+        // ── Results ─────────────────────────────────────────────────
         Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
             color: const Color(0xFF4C54B6).withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: const Color(0xFF4C54B6).withValues(alpha: 0.1)),
+            border: Border.all(color: const Color(0xFF4C54B6).withValues(alpha: 0.12)),
           ),
           child: Column(children: [
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text('STATUS', style: GoogleFonts.inter(fontSize: 9, fontWeight: FontWeight.w900, color: Colors.black38, letterSpacing: 1.5)),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(color: Colors.green.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
-                child: Text('ACTIVE', style: GoogleFonts.inter(fontSize: 9, fontWeight: FontWeight.w900, color: Colors.green, letterSpacing: 1)),
-              ),
-            ]),
-            const SizedBox(height: 20),
-            _MRow('Loan Amount',     'PKR 45,000,000'),
-            _MRow('Monthly Payment', 'PKR 385,000'),
-            _MRow('Interest Rate',   '22.5% p.a. (KIBOR + 3%)'),
-            _MRow('Remaining Term',  '18 years'),
-            _MRow('Bank',         'HBL (House Building Finance)'),
+            _ResultRow('Loan Amount',    _fmt(_loanAmount),      highlight: false),
+            Divider(height: 24, color: Colors.black.withValues(alpha: 0.06)),
+            _ResultRow('Monthly EMI',   _fmt(_emi),              highlight: true),
+            const SizedBox(height: 8),
+            _ResultRow('Total Payment', _fmt(_totalPayment),     highlight: false),
+            _ResultRow('Total Interest', _fmt(_totalInterest),   highlight: false),
           ]),
         ),
         const SizedBox(height: 16),
-        _PrimaryBtn('CONTACT BANK', () {
-          Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(_snack('Connecting to HBL Mortgage Division…'));
-        }),
+        _PrimaryBtn('DONE', () => Navigator.pop(context)),
       ]),
     );
   }
 }
 
-class _MRow extends StatelessWidget {
+class _SliderRow extends StatelessWidget {
+  final String label, valueText;
+  final double value, min, max;
+  final ValueChanged<double> onChanged;
+  const _SliderRow({required this.label, required this.valueText, required this.value, required this.min, required this.max, required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Text(label, style: GoogleFonts.inter(fontSize: 9, fontWeight: FontWeight.w800, letterSpacing: 1.5, color: Colors.black45)),
+        Text(valueText, style: GoogleFonts.manrope(fontSize: 13, fontWeight: FontWeight.w700, color: const Color(0xFF4C54B6))),
+      ]),
+      Slider(
+        value: value,
+        min: min,
+        max: max,
+        activeColor: const Color(0xFF4C54B6),
+        inactiveColor: Colors.black.withValues(alpha: 0.06),
+        onChanged: onChanged,
+      ),
+    ]);
+  }
+}
+
+class _ResultRow extends StatelessWidget {
   final String label, value;
-  const _MRow(this.label, this.value);
+  final bool highlight;
+  const _ResultRow(this.label, this.value, {required this.highlight});
+
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8),
+    padding: const EdgeInsets.symmetric(vertical: 6),
     child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Text(label, style: GoogleFonts.inter(fontSize: 13, color: Colors.black54)),
-      Text(value,  style: GoogleFonts.manrope(fontSize: 13, fontWeight: FontWeight.w700)),
+      Text(label, style: GoogleFonts.inter(fontSize: 13, color: Colors.black54, fontWeight: highlight ? FontWeight.w700 : FontWeight.normal)),
+      Text(value,  style: GoogleFonts.manrope(fontSize: highlight ? 16 : 13, fontWeight: FontWeight.w800, color: highlight ? const Color(0xFF4C54B6) : Colors.black87)),
     ]),
   );
 }
@@ -494,7 +582,7 @@ class _PreferencesSheet extends StatefulWidget {
 }
 
 class _PreferencesSheetState extends State<_PreferencesSheet> {
-  String _currency = 'USD';
+  String _currency = 'PKR';
   String _units    = 'Imperial';
   bool   _compact  = false;
 
@@ -506,7 +594,7 @@ class _PreferencesSheetState extends State<_PreferencesSheet> {
 
   Future<void> _load() async {
     final db = LocalDatabaseService();
-    final currency = await db.getPreference('pref_currency', defaultValue: 'USD');
+    final currency = await db.getPreference('pref_currency', defaultValue: 'PKR');
     final units    = await db.getPreference('pref_units',    defaultValue: 'Imperial');
     final compact  = await db.getPreference('pref_compact',  defaultValue: 'false');
     setState(() {
@@ -533,7 +621,7 @@ class _PreferencesSheetState extends State<_PreferencesSheet> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         _Label('CURRENCY'),
         const SizedBox(height: 12),
-        _Segment(options: ['USD', 'EUR', 'GBP'], selected: _currency, onChanged: (v) => setState(() => _currency = v)),
+        _Segment(options: ['PKR', 'USD', 'EUR'], selected: _currency, onChanged: (v) => setState(() => _currency = v)),
         const SizedBox(height: 28),
         _Label('MEASUREMENT UNITS'),
         const SizedBox(height: 12),

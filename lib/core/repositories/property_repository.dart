@@ -8,6 +8,19 @@ import 'package:http/http.dart' as http;
 import '../models/filter_criteria.dart';
 import '../models/property_model.dart';
 
+const _lahoreProperties = <PropertyModel>[
+  PropertyModel(id: 'lhr-001', title: 'DHA Grand Residence',      location: 'DHA Phase 6, Lahore',    price: 'PKR 8,50,00,000',  imageUrl: 'https://picsum.photos/seed/lhr001/600/400', beds: '5', baths: '5', sqft: '5,000',  category: 'House'),
+  PropertyModel(id: 'lhr-002', title: 'Gulberg Elite Penthouse',   location: 'Gulberg III, Lahore',    price: 'PKR 4,20,00,000',  imageUrl: 'https://picsum.photos/seed/lhr002/600/400', beds: '3', baths: '3', sqft: '2,800',  category: 'Flat'),
+  PropertyModel(id: 'lhr-003', title: 'Bahria Town Mansion',       location: 'Bahria Town, Lahore',    price: 'PKR 12,50,00,000', imageUrl: 'https://picsum.photos/seed/lhr003/600/400', beds: '6', baths: '6', sqft: '7,500',  category: 'House'),
+  PropertyModel(id: 'lhr-004', title: 'Model Town Classic',        location: 'Model Town, Lahore',     price: 'PKR 5,50,00,000',  imageUrl: 'https://picsum.photos/seed/lhr004/600/400', beds: '4', baths: '4', sqft: '4,000',  category: 'House'),
+  PropertyModel(id: 'lhr-005', title: 'Johar Town Upper Portion',  location: 'Johar Town, Lahore',     price: 'PKR 2,20,00,000',  imageUrl: 'https://picsum.photos/seed/lhr005/600/400', beds: '3', baths: '2', sqft: '2,200',  category: 'Upper Portion'),
+  PropertyModel(id: 'lhr-006', title: 'Canal View Farm House',     location: 'Canal Road, Lahore',     price: 'PKR 18,00,00,000', imageUrl: 'https://picsum.photos/seed/lhr006/600/400', beds: '6', baths: '5', sqft: '10,000', category: 'Farm House'),
+  PropertyModel(id: 'lhr-007', title: 'Askari 11 Residence',       location: 'Askari 11, Lahore',      price: 'PKR 6,80,00,000',  imageUrl: 'https://picsum.photos/seed/lhr007/600/400', beds: '4', baths: '4', sqft: '4,500',  category: 'House'),
+  PropertyModel(id: 'lhr-008', title: 'Garden Town Apartment',     location: 'Garden Town, Lahore',    price: 'PKR 1,80,00,000',  imageUrl: 'https://picsum.photos/seed/lhr008/600/400', beds: '2', baths: '2', sqft: '1,200',  category: 'Flat'),
+  PropertyModel(id: 'lhr-009', title: 'Wapda Town Lower Portion',  location: 'Wapda Town, Lahore',     price: 'PKR 1,50,00,000',  imageUrl: 'https://picsum.photos/seed/lhr009/600/400', beds: '2', baths: '2', sqft: '1,100',  category: 'Lower Portion'),
+  PropertyModel(id: 'lhr-010', title: 'Valencia Town Villa',       location: 'Valencia Town, Lahore',  price: 'PKR 9,00,00,000',  imageUrl: 'https://picsum.photos/seed/lhr010/600/400', beds: '5', baths: '5', sqft: '5,500',  category: 'House'),
+];
+
 String get _baseUrl {
   if (kIsWeb) {
     return 'http://127.0.0.1:8000';
@@ -83,12 +96,26 @@ class PropertyRepository {
   static List<PropertyModel>? _cachedFeatured;
 
   static Future<List<PropertyModel>> fetchFeed({String? location}) async {
-    _cachedFeed ??= await _ApiClient.fetchFeed(location: location);
+    if (_cachedFeed == null) {
+      try {
+        _cachedFeed = await _ApiClient.fetchFeed(location: location);
+        if (_cachedFeed!.isEmpty) _cachedFeed = List.of(_lahoreProperties);
+      } catch (_) {
+        _cachedFeed = List.of(_lahoreProperties);
+      }
+    }
     return _cachedFeed!;
   }
 
   static Future<List<PropertyModel>> fetchFeatured() async {
-    _cachedFeatured ??= await _ApiClient.fetchFeatured();
+    if (_cachedFeatured == null) {
+      try {
+        _cachedFeatured = await _ApiClient.fetchFeatured();
+        if (_cachedFeatured!.isEmpty) _cachedFeatured = List.of(_lahoreProperties);
+      } catch (_) {
+        _cachedFeatured = List.of(_lahoreProperties);
+      }
+    }
     return _cachedFeatured!;
   }
 

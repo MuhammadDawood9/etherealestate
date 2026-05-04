@@ -83,8 +83,35 @@ class _SearchHomeScreenState extends ConsumerState<SearchHomeScreen> {
     }
   }
 
+  Future<FilterCriteria> _loadPreferenceDefaults() async {
+    final type     = await _db.getPreference('pref_property_type');
+    final bedsStr  = await _db.getPreference('pref_bedrooms');
+    final minStr   = await _db.getPreference('pref_budget_min');
+    final maxStr   = await _db.getPreference('pref_budget_max');
+
+    int? beds;
+    if (bedsStr != null && bedsStr != 'Any') {
+      beds = int.tryParse(bedsStr.replaceAll('+', ''));
+    }
+
+    return FilterCriteria(
+      propertyType: type,
+      minBeds: beds,
+      minPrice: double.tryParse(minStr ?? ''),
+      maxPrice: double.tryParse(maxStr ?? ''),
+    );
+  }
+
   Future<void> _showFilterSheet() async {
-    final currentFilter = ref.read(activeFilterProvider);
+    var currentFilter = ref.read(activeFilterProvider);
+
+    // Pre-populate from saved preferences only when no explicit filter is active
+    if (currentFilter.isDefault) {
+      currentFilter = await _loadPreferenceDefaults();
+    }
+
+    if (!mounted) return;
+
     final result = await showModalBottomSheet<FilterCriteria>(
       context: context,
       isScrollControlled: true,

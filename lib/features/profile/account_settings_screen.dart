@@ -11,6 +11,11 @@ import '../../core/services/auth_service.dart';
 import '../../shared/user_avatar.dart';
 import '../../shared/widgets/bottom_nav_bar.dart';
 import '../../shared/widgets/app_menu_sheet.dart';
+import '../seller/seller_dashboard_screen.dart';
+
+final _userRoleProvider = FutureProvider<String>((ref) async {
+  return await LocalDatabaseService().getPreference('user_role', defaultValue: 'buyer') ?? 'buyer';
+});
 
 class AccountSettingsScreen extends ConsumerWidget {
   const AccountSettingsScreen({super.key});
@@ -19,6 +24,7 @@ class AccountSettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final profile = ref.watch(userProfileProvider);
     final isAdmin = ref.watch(isAdminProvider).valueOrNull ?? false;
+    final isSeller = (ref.watch(_userRoleProvider).valueOrNull ?? 'buyer') == 'seller';
     return Scaffold(
       extendBody: true,
       body: Stack(
@@ -61,6 +67,10 @@ class AccountSettingsScreen extends ConsumerWidget {
                     ],
                     context,
                   ),
+                  if (isSeller) ...[
+                    const SizedBox(height: 24),
+                    _buildSellerSection(context),
+                  ],
                   if (isAdmin) ...[
                     const SizedBox(height: 24),
                     _buildAdminSection(context),
@@ -188,6 +198,59 @@ class AccountSettingsScreen extends ConsumerWidget {
           const SizedBox(width: 8),
           const Icon(Icons.chevron_right, color: Colors.black26),
         ],
+      ),
+    );
+  }
+
+  // ── Seller ────────────────────────────────────────────────────────────────────
+
+  Widget _buildSellerSection(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const SellerDashboardScreen()),
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Color(0xFF2D4A3E), Color(0xFF1A3028)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: const Color(0xFF4CAF82).withValues(alpha: 0.3)),
+        ),
+        child: Row(children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: const Color(0xFF4CAF82).withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: const Icon(Icons.storefront_outlined, color: Color(0xFF4CAF82), size: 24),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Row(children: [
+                Text('Seller Portal', style: GoogleFonts.manrope(fontSize: 16, fontWeight: FontWeight.w800, color: Colors.white)),
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF4CAF82).withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text('SELLER', style: GoogleFonts.inter(fontSize: 8, fontWeight: FontWeight.w900, color: const Color(0xFF4CAF82), letterSpacing: 1.5)),
+                ),
+              ]),
+              Text('Manage your property listings', style: GoogleFonts.inter(fontSize: 12, color: Colors.white54)),
+            ]),
+          ),
+          const Icon(Icons.chevron_right, color: Colors.white24, size: 20),
+        ]),
       ),
     );
   }

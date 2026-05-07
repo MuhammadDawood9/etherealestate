@@ -16,7 +16,7 @@ class LocalDatabaseService {
   }
 
   Future<Database> _openDatabase(String path) {
-    return openDatabase(path, version: 4, onCreate: _onCreate, onUpgrade: _onUpgrade);
+    return openDatabase(path, version: 6, onCreate: _onCreate, onUpgrade: _onUpgrade);
   }
 
   Future<void> _onCreate(Database db, int version) async {
@@ -24,10 +24,16 @@ class LocalDatabaseService {
     await db.execute('CREATE TABLE bookings(id TEXT PRIMARY KEY, propertyId TEXT, propertyTitle TEXT, date TEXT, timeSlot TEXT, createdAt TEXT, status TEXT DEFAULT "pending")');
     await db.execute('CREATE TABLE preferences(key TEXT PRIMARY KEY, value TEXT)');
     await db.execute('CREATE TABLE search_history(query TEXT PRIMARY KEY, searched_at DATETIME DEFAULT CURRENT_TIMESTAMP)');
+    await db.execute('CREATE TABLE seller_listings(id TEXT PRIMARY KEY, title TEXT, location TEXT, price TEXT, imageUrl TEXT, beds TEXT, baths TEXT, sqft TEXT, category TEXT, description TEXT, seller_uid TEXT, status TEXT DEFAULT "available", image_paths TEXT DEFAULT "", created_at DATETIME DEFAULT CURRENT_TIMESTAMP)');
   }
 
   Future<void> _onUpgrade(Database db, int old, int next) async {
     if (old < 4) await db.execute('ALTER TABLE bookings ADD COLUMN status TEXT DEFAULT "pending"');
+    if (old < 5) await db.execute('CREATE TABLE IF NOT EXISTS seller_listings(id TEXT PRIMARY KEY, title TEXT, location TEXT, price TEXT, imageUrl TEXT, beds TEXT, baths TEXT, sqft TEXT, category TEXT, description TEXT, seller_uid TEXT, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)');
+    if (old < 6) {
+      await db.execute('ALTER TABLE seller_listings ADD COLUMN status TEXT DEFAULT "available"');
+      await db.execute('ALTER TABLE seller_listings ADD COLUMN image_paths TEXT DEFAULT ""');
+    }
   }
 
   // --- Fixed/Added Methods ---
@@ -129,5 +135,47 @@ class LocalDatabaseService {
     if (kIsWeb) return; // 👈 Web Bypass
     final db = await database;
     await db.delete('search_history', where: 'query = ?', whereArgs: [query]);
+  }
+
+  // --- Seller Listings ---
+
+  Future<void> addSellerListing(Map<String, dynamic> listing) async {
+    if (kIsWeb) return;
+    final db = await database;
+    await db.insert('seller_listings', listing, conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<List<Map<String, dynamic>>> getSellerListings(String sellerUid) async {
+    if (kIsWeb) return [];
+    final db = await database;
+    return db.query('seller_listings', where: 'seller_uid = ?', whereArgs: [sellerUid], orderBy: 'created_at DESC');
+  }
+
+  Future<void> deleteSellerListing(String id) async {
+    if (kIsWeb) return;
+    final db = await database;
+    await db.delete('seller_listings', where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<void> updateSellerListing(String id, Map<String, dynamic> data) async {
+    if (kIsWeb) return;
+    final db = await database;
+    await db.update('seller_listings', data, where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<void> setListingStatus(String id, String status) async {
+    if (kIsWeb) return;
+    final db = await database;
+    await db.update('seller_listings', {'status': status}, where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<List<Map<String, dynamic>>> getSellerBookings(String sellerUid) async {
+    if (kIsWeb) return [];
+    final db = await database;
+    return db.rawQuery('''
+      SELECT b.* FROM bookings b
+      WHERE b.propertyId IN (SELECT id FROM seller_listings WHERE seller_uid = ?)
+      ORDER BY b.createdAt DESC
+    ''', [sellerUid]);
   }
 }

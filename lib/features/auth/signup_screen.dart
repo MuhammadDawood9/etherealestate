@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/services/auth_service.dart';
+import '../../core/services/local_database_service.dart';
 import '../../shared/widgets/gradient_sphere.dart';
+import '../seller/seller_dashboard_screen.dart';
 import 'preference_wizard_screen.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -18,6 +20,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   bool _isLoading = false;
+  String _selectedRole = 'buyer';
 
   @override
   void dispose() {
@@ -46,16 +49,22 @@ class _SignupScreenState extends State<SignupScreen> {
 
     setState(() => _isLoading = true);
     try {
-      final result = await _authService.registerWithEmail(
+      await _authService.registerWithEmail(
         _emailController.text.trim(),
         _passwordController.text,
       );
-      if (mounted) {
-        await _authService.updateUserProfile(name: _nameController.text.trim());
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const PreferenceWizardScreen()),
-        );
-      }
+      if (!mounted) return;
+      await _authService.updateUserProfile(name: _nameController.text.trim());
+      await LocalDatabaseService().setPreference('user_role', _selectedRole);
+      final role = _selectedRole;
+      if (!mounted) return;
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => role == 'seller'
+              ? const SellerDashboardScreen()
+              : const PreferenceWizardScreen(),
+        ),
+      );
     } catch (e) {
       _showError(_parseAuthError(e.toString()));
     } finally {
@@ -124,7 +133,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       color: Colors.black54,
                     ),
                   ),
-                  const SizedBox(height: 48),
+                  const SizedBox(height: 28),
+                  _buildRoleToggle(),
+                  const SizedBox(height: 28),
                   _buildTextField(
                     controller: _nameController,
                     label: 'FULL NAME',
@@ -173,7 +184,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                           )
                         : Text(
-                            'Create Account',
+                            _selectedRole == 'seller' ? 'Create Seller Account' : 'Create Account',
                             style: GoogleFonts.inter(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -205,6 +216,54 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildRoleToggle() {
+    return Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: Colors.black.withValues(alpha: 0.04),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: ['buyer', 'seller'].map((role) {
+          final active = role == _selectedRole;
+          return Expanded(
+            child: GestureDetector(
+              onTap: () => setState(() => _selectedRole = role),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color: active ? Colors.white : Colors.transparent,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: active ? [BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 8)] : [],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      role == 'buyer' ? Icons.person_outline : Icons.storefront_outlined,
+                      size: 16,
+                      color: active ? const Color(0xFF4C54B6) : Colors.black38,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      role == 'buyer' ? "I'm a Buyer" : "I'm a Seller",
+                      style: GoogleFonts.inter(
+                        fontSize: 13,
+                        fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+                        color: active ? const Color(0xFF4C54B6) : Colors.black38,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }).toList(),
       ),
     );
   }

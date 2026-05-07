@@ -20,6 +20,7 @@ import 'features/profile/account_settings_screen.dart';
 import 'features/profile/agent_profile_screen.dart';
 import 'features/admin/admin_shell.dart';
 import 'features/property/property_details_screen.dart';
+import 'features/seller/seller_dashboard_screen.dart';
 import 'core/utils/fade_scale_route.dart';
 
 void main() async {
@@ -107,6 +108,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.profile:    (context) => const AccountSettingsScreen(),
         AppRoutes.agent:      (context) => const AgentProfileScreen(),
         AppRoutes.admin:      (context) => const AdminShell(),
+        '/seller':            (context) => const SellerDashboardScreen(),
       },
       // Handles deep links: /property/<propertyId>
       onGenerateRoute: (settings) {

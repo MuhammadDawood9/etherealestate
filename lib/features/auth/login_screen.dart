@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:local_auth/local_auth.dart';
 import '../../core/services/auth_service.dart';
+import '../../core/services/local_database_service.dart';
 import '../../shared/widgets/glass_card.dart';
 import '../search/search_home_screen.dart';
+import '../seller/seller_dashboard_screen.dart';
 import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -24,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscurePassword = true;
   bool _hasBiometrics = false;
   bool _isFaceId = false;
+  String _selectedRole = 'buyer';
 
   @override
   void initState() {
@@ -48,15 +51,25 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  Future<void> _saveRoleAndNavigate() async {
+    await LocalDatabaseService().setPreference('user_role', _selectedRole);
+    if (!mounted) return;
+    if (_selectedRole == 'seller') {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const SellerDashboardScreen()),
+      );
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const SearchHomeScreen()),
+      );
+    }
+  }
+
   Future<void> _signInWithGoogle() async {
     setState(() => _isLoadingGoogle = true);
     try {
       final user = await _authService.signInWithGoogle();
-      if (user != null && mounted) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const SearchHomeScreen()),
-        );
-      }
+      if (user != null && mounted) await _saveRoleAndNavigate();
     } catch (e) {
       _showError(_parseError(e.toString()));
     } finally {
@@ -74,11 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _isLoadingEmail = true);
     try {
       final user = await _authService.signInWithEmail(email, password);
-      if (user != null && mounted) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const SearchHomeScreen()),
-        );
-      }
+      if (user != null && mounted) await _saveRoleAndNavigate();
     } catch (e) {
       _showError(_parseError(e.toString()));
     } finally {
@@ -93,9 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (!mounted) return;
       if (authenticated) {
         if (_authService.currentUser != null) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const SearchHomeScreen()),
-          );
+          await _saveRoleAndNavigate();
         } else {
           _showError('No saved session — sign in with email or Google first.');
         }
@@ -202,7 +209,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             'Sign in to your curated collection.',
                             style: GoogleFonts.inter(fontSize: 14, color: Colors.black54),
                           ),
-                          const SizedBox(height: 32),
+                          const SizedBox(height: 24),
+
+                          // Role toggle
+                          _buildRoleToggle(),
+                          const SizedBox(height: 8),
 
                           // Google button
                           _buildGoogleButton(),
@@ -278,7 +289,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     )
                                   : Text(
-                                      'ENTER THE GALLERY',
+                                      _selectedRole == 'seller' ? 'ENTER THE PORTAL' : 'ENTER THE GALLERY',
                                       style: GoogleFonts.manrope(
                                         fontWeight: FontWeight.w800,
                                         letterSpacing: 1.5,
@@ -321,14 +332,62 @@ class _LoginScreenState extends State<LoginScreen> {
           Positioned(
             top: -100,
             left: -100,
-            child: _BlurCircle(color: const Color(0xFF4C54B6).withValues(alpha: 0.05)),
+            child: IgnorePointer(child: _BlurCircle(color: const Color(0xFF4C54B6).withValues(alpha: 0.05))),
           ),
           Positioned(
             bottom: -100,
             right: -100,
-            child: _BlurCircle(color: const Color(0xFF515F78).withValues(alpha: 0.08)),
+            child: IgnorePointer(child: _BlurCircle(color: const Color(0xFF515F78).withValues(alpha: 0.08))),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildRoleToggle() {
+    return Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: Colors.black.withValues(alpha: 0.04),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: ['buyer', 'seller'].map((role) {
+          final active = role == _selectedRole;
+          return Expanded(
+            child: GestureDetector(
+              onTap: () => setState(() => _selectedRole = role),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding: const EdgeInsets.symmetric(vertical: 11),
+                decoration: BoxDecoration(
+                  color: active ? Colors.white : Colors.transparent,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: active ? [BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 8)] : [],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      role == 'buyer' ? Icons.person_outline : Icons.storefront_outlined,
+                      size: 15,
+                      color: active ? const Color(0xFF4C54B6) : Colors.black38,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      role == 'buyer' ? 'Buyer' : 'Seller',
+                      style: GoogleFonts.inter(
+                        fontSize: 13,
+                        fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+                        color: active ? const Color(0xFF4C54B6) : Colors.black38,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }).toList(),
       ),
     );
   }
